@@ -3,7 +3,9 @@ import copy
 import cv2
 import math
 
+from scene_info import SceneInfo
 from hsv_filter import HSVFilter
+
 from typing import Tuple, Sequence
 
 # type alias to spare my fingers :D
@@ -24,6 +26,7 @@ class ImageProcessor:
     def __init__(self, img: Image) -> None:
         self._processed_img: Image = copy.deepcopy(img)
         self._color_filters: list[HSVFilter] = []
+        self._created_masks: list[np.ndarray] = []
 
     def add_color_filter(self, to_add: HSVFilter) -> None:
         self._color_filters.append(to_add)
@@ -35,20 +38,17 @@ class ImageProcessor:
 
         hsv_image: Image = cv2.cvtColor(self._processed_img, cv2.COLOR_BGR2HSV)
 
-        # store all masks
-        created_masks: list[np.ndarray] = []
-
         for hsv_filter in self._color_filters:
             # H V S
             mask: np.ndarray = (abs(hsv_filter.h_ref - hsv_image[:, :, 0]) < hsv_filter.h_thresh) & (
                     hsv_image[:, :, 2] > hsv_filter.v_thresh) & (hsv_image[:, :, 1] > hsv_filter.s_thresh)
 
-            created_masks.append(mask)
+            self._created_masks.append(mask)
 
         # put all masks together
-        final_mask: np.ndarray = created_masks[0]
-        for mask_i in range(1, len(created_masks)):
-            final_mask = np.logical_or(final_mask, created_masks[mask_i])
+        final_mask: np.ndarray = self._created_masks[0]
+        for mask_i in range(1, len(self._created_masks)):
+            final_mask = np.logical_or(final_mask, self._created_masks[mask_i])
 
         self._processed_img[~final_mask] = 0
 
@@ -56,8 +56,8 @@ class ImageProcessor:
         kernel: np.ndarray = np.ones((4, 4), np.uint8)
         self._processed_img = cv2.morphologyEx(self._processed_img, cv2.MORPH_OPEN, kernel)
 
-    def detect_ball(self, draw: bool = False) -> Tuple[bool, Tuple[int, int]]:
-        ball_detected: bool = False
+    def segment_scene(self, draw: bool = False) -> SceneInfo:
+        info: SceneInfo = SceneInfo()
 
         # remove color from image (make it black and white)
         bw_image: Image = copy.deepcopy(self._processed_img)
@@ -83,9 +83,23 @@ class ImageProcessor:
             min_c_area: float = math.pi * (min_c_radius ** 2)
             min_rect_area: float = min_rect[1][0] * min_rect[1][1]
 
+            x: int
+            y: int
+            w: int
+            h: int
+            x, y, w, h = cv2.boundingRect(contour)
+
             # the ball should have different circle/rect area ratio than the pins
             if min_c_area / min_rect_area < CIRCLE_TO_RECT and min_c_area / cv2.contourArea(hull) < CIRCLE_TO_HULL:
-                ball_detected = True
+                info.has_ball = True
+                info.ball_position = (int(min_c_center[0]), int(min_c_center[1]))
+            elif h / w > 1.9:
+                cx: int = int(x + w / 2)
+                cy: int = int(y + h / 2)
+
+                if self._created_masks[1][cy][cx] == 1:
+                    info.pin_count += 1
+                    info.pin_positions.append((cx, cy))
 
             # make contours visible in image
             if not draw:
@@ -99,7 +113,7 @@ class ImageProcessor:
             cv2.drawContours(self._processed_img, [hull], -1, (0, 0, 255), 2)
 
         # TODO: Properly return ball center in image
-        return ball_detected, (1, 1)
+        return info
 
     def retrieve_image(self) -> Image:
         return self._processed_img

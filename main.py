@@ -1,4 +1,6 @@
 from robolab_turtlebot import Turtlebot, Rate
+
+from scene_info import SceneInfo
 from visualizer import Visualizer
 from hsv_filter import HSVFilter
 from image_processor import ImageProcessor, Image
@@ -27,8 +29,8 @@ def main() -> None:
 
         img_processor.filter_color()
 
-        has_ball: bool
-        has_ball, _ = img_processor.detect_ball(draw=True)
+        result: SceneInfo = img_processor.segment_scene(draw=True)
+        print(result.has_ball, result.ball_position)
 
         visual.refresh_image(img_processor.retrieve_image(), center_point=True)
 
