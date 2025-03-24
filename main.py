@@ -60,6 +60,15 @@ def main() -> None:
         if robot_state == "GENERAL_SEARCH":
             prev_search_results.append(search_result)
 
+            if search_result == "PINS_FOUND":
+                depth_image: np.ndarray = turtle.get_point_cloud()
+
+                center_dist: float = 0.0
+                for pin_pos in image_results[-1].pin_positions:
+                    center_dist += get_distance_of_pixel(depth_image, pin_pos[0], pin_pos[1])
+
+                center_dist /= 2.0
+
             if state_machine_step(sanity_check, prev_search_results, motor_driver):
                 if sanity_check:
                     # succesfully found ball
@@ -78,31 +87,30 @@ def main() -> None:
                 y_ball_pos: int = image_results[-1].ball_position[1]
                 x_ball_pos: int = image_results[-1].ball_position[0]
 
-                last_radius = 0.0
-                for y in range(y_ball_pos - 3, y_ball_pos + 4):
-                    for x in range(x_ball_pos - 3, x_ball_pos + 4):
-                        last_radius += depth_image[y][x][2]
-
-                last_radius /= 7 ** 2
-                print(last_radius)
+                last_radius = get_distance_of_pixel(depth_image, x_ball_pos, y_ball_pos)
                 robot_state = "MOVE_RADIUS"
         elif robot_state == "MOVE_RADIUS":
 
             if "BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results:
-                print(prev_search_results)
 
                 ball_index: int = prev_search_results.index("BALL_FOUND")
                 pins_index: int = prev_search_results.index("PINS_FOUND")
 
                 left: bool = ball_index > pins_index
 
+                # check, whether there was a full revolution between ball and pins
                 if abs(ball_index - pins_index) > 15:
                     left = not left
 
-                print(ball_index, pins_index, left)
-
+                # look 90deg away from ball
                 motor_driver.rotate(math.pi / 2, left)
-                exit()
+
+                # follow arc until you reach shooting position
+                lin_speed: float = 0.2
+                rot_speed: float = lin_speed / last_radius
+                motor_driver.set_speed(-rot_speed, lin_speed)
+                motor_driver.move_forward()
+
             else:
                 # previously found both and got here by accident
                 robot_state = "GENERAL_SEARCH"
@@ -156,6 +164,18 @@ def center_ball(image_results: list, motor_driver: MotorDriver) -> bool:
             motor_driver.rotate_non_blocking(True, True)
     else:
         return False
+
+
+def get_distance_of_pixel(depth_image: np.ndarray, x_center: int, y_center: int) -> float:
+    depth: float = 0.0
+
+    for y in range(y_center - 3, y_center + 4):
+        for x in range(x_center - 3, x_center + 4):
+            depth += depth_image[y][x][2]
+
+    depth /= (7 ** 2)
+
+    return depth
 
 
 if __name__ == "__main__":
