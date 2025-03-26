@@ -43,14 +43,7 @@ class MotorDriver:
             self._rate.sleep()
 
     def rotate(self, degrees: int, left: bool = True) -> None:
-        while (abs(self._turtle.get_odometry()[0]) > 0.1 or abs(self._turtle.get_odometry()[1]) > 0.1 or abs(
-                self._turtle.get_odometry()[2]) > 0.1) and (not self._turtle.is_shutting_down()):
-            self._turtle.reset_odometry()
-
-        if degrees > math.pi:
-            degrees = abs((2*math.pi - degrees) - (math.pi / 9))
-            left = not left
-
+        self.reset_odometry_blocking()
         self._set_direction(left)
 
         while abs(self._turtle.get_odometry()[2]) < abs(degrees) and (not self._turtle.is_shutting_down()):
@@ -70,3 +63,8 @@ class MotorDriver:
 
         self._set_direction(left)
         self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 2)
+
+    def reset_odometry_blocking(self) -> None:
+        while (abs(self._turtle.get_odometry()[0]) > 0.1 or abs(self._turtle.get_odometry()[1]) > 0.1 or abs(
+                self._turtle.get_odometry()[2]) > 0.1) and (not self._turtle.is_shutting_down()):
+            self._turtle.reset_odometry()
