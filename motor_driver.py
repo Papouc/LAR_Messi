@@ -18,7 +18,7 @@ class MotorDriver:
         self._rotation_speed = rotation_speed
         self._forward_speed = forward_speed
 
-    def move_forward(self, travel_time: float) -> None:
+    def move_forward_accel(self, travel_time: float) -> None:
         start_time: float = time.time()
         accel_start: float = time.time()
         speed_fw: float = 0.0
@@ -47,6 +47,13 @@ class MotorDriver:
             if time.time() - start_time >= travel_time + accel_time:
                 break
 
+    def move_forward(self, move_time: float) -> None:
+        start_time: float = time.time()
+
+        while (time.time() - start_time < move_time) and (not self._turtle.is_shutting_down()):
+            self._turtle.cmd_velocity(linear=self._forward_speed, angular=self._rotation_speed)
+            self._rate.sleep()
+
     def rotate(self, degrees: int, left: bool = True) -> None:
         self.reset_odometry_blocking()
         self._set_direction(left)
@@ -67,9 +74,15 @@ class MotorDriver:
             return
 
         self._set_direction(left)
-        self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 2)
+        self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 1.3)
 
     def reset_odometry_blocking(self) -> None:
+        self._turtle.reset_odometry()
+        start_time: float = time.time()
         while (abs(self._turtle.get_odometry()[0]) > 0.1 or abs(self._turtle.get_odometry()[1]) > 0.1 or abs(
                 self._turtle.get_odometry()[2]) > 0.1) and (not self._turtle.is_shutting_down()):
-            self._turtle.reset_odometry()
+            self._turtle.wait_for_odometry()
+
+            if time.time() - start_time > 0.1:
+                start_time = time.time()
+                self._turtle.reset_odometry()

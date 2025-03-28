@@ -9,7 +9,9 @@ from hsv_filter import HSVFilter
 from image_processor import ImageProcessor, Image
 from path_info import PathInfo
 from sympy import symbols, Eq, solve
+from typing import Tuple
 
+import time
 import numpy as np
 import math
 
@@ -19,7 +21,7 @@ TURN_ANGLE: float = (1 / 18) * math.pi
 IMAGE_CENTER_X: int = 640 / 2
 X_THRESHOLD: int = 10
 
-DEAD_AREA_ANGLE: float = 0.52
+DEAD_AREA_ANGLE: float = 0.6
 
 
 def main() -> None:
@@ -32,10 +34,13 @@ def main() -> None:
     prev_search_results: list = []
 
     sanity_check: bool = False
-    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, PREP_TO_SCORE, ALIGN
+    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE
 
     # math related values
     path_info: PathInfo = PathInfo()
+    k_matrix: np.ndarray = turtle.get_rgb_K()
+
+    braking_start_time: float = -1
 
     while not turtle.is_shutting_down():
         new_img: Image = turtle.get_rgb_image()
@@ -69,13 +74,12 @@ def main() -> None:
             prev_search_results.append(search_result)
 
             depth_image: np.ndarray = turtle.get_point_cloud()
-            k_matrix: np.ndarray = turtle.get_rgb_K()
 
             if search_result == "BOTH_FOUND":
                 path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
                 path_info.from_one_picture = True
                 path_info.ball_pins_angle = 0
-                path_info.on_left = get_side(image_results)
+                path_info.on_left, _ = get_side(image_results)
 
             elif search_result == "PINS_FOUND" and len(path_info.pin_vectors) <= 0:
                 path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
@@ -96,6 +100,9 @@ def main() -> None:
                 path_info.ball_pins_angle += turtle.get_odometry()[2]
 
                 robot_state = "GET_RADIUS"
+            elif not image_results[-1].has_ball:
+                robot_state = "GENERAL_SEARCH"
+
         elif robot_state == "GET_RADIUS":
 
             if image_results[-1].has_ball:
@@ -198,8 +205,9 @@ def main() -> None:
                 print("Travel time:", travel_time)
 
                 motor_driver.set_speed(rot_speed if path_info.on_left else -rot_speed, lin_speed)
-                motor_driver.move_forward(travel_time)
+                motor_driver.move_forward_accel(travel_time)
 
+                motor_driver.set_speed(0.7, 0.0)
                 motor_driver.rotate(math.pi / 2, not left)
                 robot_state = "PREP_TO_SCORE"
             else:
@@ -211,14 +219,73 @@ def main() -> None:
             # center ball -> check if both_found -> if not -> score
             path_info.aligning_phase = True
             robot_state = "CENTER_BALL"
+        elif robot_state == "BACK_OFF":
+            reverse_walk(motor_driver)
+            robot_state = "CENTER_BALL"
         elif robot_state == "ALIGN":
-            on_left: bool = get_side(image_results)
+            if image_results[-1].pin_count < 2:
+                robot_state = "BACK_OFF"
+                continue
+
+            on_left: bool
+            pin_center: int
+            on_left, pin_center = get_side(image_results)
+            ball_center: int = image_results[-1].ball_position[0]
+
+            dist_from_center: int = abs(ball_center - pin_center)
+            print("Pixel distance:", dist_from_center)
+
+            if dist_from_center < 10:
+                robot_state = "SCORE"
+            else:
+                motor_driver.rotate(math.pi / 2, not on_left)
+
+                lin_speed: float = 0.1
+                rot_speed: float = (lin_speed / path_info.circle_radius) * 2
+
+                motor_driver.set_speed(rot_speed if path_info.on_left else -rot_speed, lin_speed)
+                motor_driver.move_forward(dist_from_center * path_info.circle_radius / 30)
+                motor_driver.set_speed(0.7, 0.0)
+
+                motor_driver.rotate(math.pi / 2, on_left)
+                robot_state = "PREP_TO_SCORE"
+
+        elif robot_state == "SCORE":
+            depth_image: np.ndarray = turtle.get_point_cloud()
+
+            ball_x: int
+            ball_y: int
+            ball_x, ball_y = image_results[-1].ball_position
+
+            dist_to_ball: float = depth_image[ball_y][ball_x][2]
+
+            # back off from the ball a little
+            if dist_to_ball < 0.6 and (not path_info.score_back_up_done):
+                reverse_walk(motor_driver)
+
+            path_info.score_back_up_done = True
+
+            lin_speed: float = 0.8
+            rot_speed: float = 0.75 / dist_to_ball
+
+            motor_driver.set_speed(rot_speed, lin_speed)
+
+            score_time: float = dist_to_ball / lin_speed
+            motor_driver.move_forward(score_time)
+            print("Gooool:D!!")
+            break
 
         main_loop_rate.sleep()
         image_results = []
 
 
-def get_side(image_results: list) -> bool:
+def reverse_walk(motor_driver: MotorDriver) -> None:
+    motor_driver.set_speed(0.0, -0.15)
+    motor_driver.move_forward(2.0)
+    motor_driver.set_speed(0.7, 0.0)
+
+
+def get_side(image_results: list) -> Tuple[bool, int]:
     index: int = 1
     while len(image_results[5 - index].pin_positions) < 2:
         index += 1
@@ -226,7 +293,7 @@ def get_side(image_results: list) -> bool:
     pin_center: int = (image_results[5 - index].pin_positions[0][0] +
                        image_results[5 - index].pin_positions[1][0]) / 2
 
-    return pin_center <= image_results[5 - index].ball_position[0]
+    return pin_center <= image_results[5 - index].ball_position[0], pin_center
 
 
 def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver: MotorDriver,

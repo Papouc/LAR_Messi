@@ -9,3 +9,4 @@ class PathInfo:
     on_left: bool = True
     from_one_picture: bool = False
     aligning_phase: bool = False
+    score_back_up_done: bool = False
