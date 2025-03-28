@@ -19,6 +19,8 @@ TURN_ANGLE: float = (1 / 18) * math.pi
 IMAGE_CENTER_X: int = 640 / 2
 X_THRESHOLD: int = 10
 
+DEAD_AREA_ANGLE: float = 0.52
+
 
 def main() -> None:
     turtle: Turtlebot = Turtlebot(rgb=True, pc=True)
@@ -30,7 +32,7 @@ def main() -> None:
     prev_search_results: list = []
 
     sanity_check: bool = False
-    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH
+    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, PREP_TO_SCORE, ALIGN
 
     # math related values
     path_info: PathInfo = PathInfo()
@@ -66,9 +68,16 @@ def main() -> None:
         if robot_state == "GENERAL_SEARCH":
             prev_search_results.append(search_result)
 
-            if search_result == "PINS_FOUND" and len(path_info.pin_vectors) <= 0:
-                depth_image: np.ndarray = turtle.get_point_cloud()
-                k_matrix: np.ndarray = turtle.get_rgb_K()
+            depth_image: np.ndarray = turtle.get_point_cloud()
+            k_matrix: np.ndarray = turtle.get_rgb_K()
+
+            if search_result == "BOTH_FOUND":
+                path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
+                path_info.from_one_picture = True
+                path_info.ball_pins_angle = 0
+                path_info.on_left = get_side(image_results)
+
+            elif search_result == "PINS_FOUND" and len(path_info.pin_vectors) <= 0:
                 path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
 
             if state_machine_step(sanity_check, prev_search_results, motor_driver, path_info):
@@ -85,7 +94,6 @@ def main() -> None:
                 # add centering offset to angle between pins and ball
                 turtle.wait_for_odometry()
                 path_info.ball_pins_angle += turtle.get_odometry()[2]
-                print("IMPORTANT", turtle.get_odometry()[2])
 
                 robot_state = "GET_RADIUS"
         elif robot_state == "GET_RADIUS":
@@ -96,21 +104,24 @@ def main() -> None:
                 x_ball_pos: int = image_results[-1].ball_position[0]
 
                 path_info.circle_radius = get_distance_of_pixel(depth_image, x_ball_pos, y_ball_pos)
-                robot_state = "COMPUTE_PATH"
+                if path_info.aligning_phase:
+                    robot_state = "ALIGN"
+                else:
+                    robot_state = "COMPUTE_PATH"
+
         elif robot_state == "COMPUTE_PATH":
-            print(path_info.ball_pins_angle)
-            print(path_info.pin_vectors)
-            print(path_info.circle_radius)
 
-            ball_index: int = prev_search_results.index("BALL_FOUND")
-            pins_index: int = prev_search_results.index("PINS_FOUND")
+            if not path_info.from_one_picture:
+                ball_index: int = prev_search_results.index("BALL_FOUND")
+                pins_index: int = prev_search_results.index("PINS_FOUND")
 
-            # check, whether there was a full revolution between ball and pins
-            if (abs(ball_index - pins_index) > 15 and ball_index > pins_index) or (
-                    pins_index > ball_index and abs(ball_index - pins_index) < 10):
-                print("left")
-            else:
-                path_info.ball_pins_angle *= -1
+                # check, whether there was a full revolution between ball and pins
+                if (abs(ball_index - pins_index) > 15 and ball_index > pins_index) or (
+                        pins_index > ball_index and abs(ball_index - pins_index) < 10):
+                    path_info.on_left = True
+                else:
+                    path_info.on_left = False
+                    path_info.ball_pins_angle *= -1
 
             q1: np.ndarray = path_info.pin_vectors[1] - path_info.pin_vectors[0]
             c1: np.ndarray = path_info.pin_vectors[0] + q1 / 2
@@ -126,9 +137,6 @@ def main() -> None:
 
             r_transf: np.ndarray = transf_matrix @ np.array([0, 0, path_info.circle_radius])
             line: np.ndarray = np.array([q1[0], q1[2], -(q1[0] * c1[0] + q1[2] * c1[2])])
-            print("Transformed radius vector", r_transf)
-            print("Line", line)
-            print("x -", r_transf[0], "y -", r_transf[2], "=", path_info.circle_radius ** 2)
 
             # TODO: typdef
             x, y = symbols('x y', real=True)
@@ -138,16 +146,8 @@ def main() -> None:
 
             solutions = solve((eq1, eq2), (x, y))
 
-            print("Solutions", solutions)
-            # difference = (solutions[0][0] - solutions[1][0], solutions[0][1] - solutions[1][1])
-            # raidus_guess = math.sqrt(difference[0] ** 2 + difference[1] ** 2)
-            # print("radius_guess:", raidus_guess, "real radius:", path_info.circle_radius)
-
             guess_pos_1: np.ndarray = np.array([c1[0] - solutions[0][0], c1[2] - solutions[0][1]])
             guess_pos_2: np.ndarray = np.array([c1[0] - solutions[1][0], c1[2] - solutions[1][1]])
-
-            print("Guess1", guess_pos_1)
-            print("Guess2", guess_pos_2)
 
             dest_pos: np.ndarray
             if vector_norm(guess_pos_2) > vector_norm(guess_pos_1):
@@ -155,7 +155,6 @@ def main() -> None:
             else:
                 dest_pos = np.array([solutions[0][0], solutions[0][1]])
 
-            print("Dest", dest_pos)
             r_transf2D: np.ndarray = np.array([r_transf[0], r_transf[2]])
             center_to_dest: np.ndarray = dest_pos - r_transf2D
 
@@ -163,47 +162,78 @@ def main() -> None:
             final_angle: float = math.acos(
                 dot_product / (vector_norm(-r_transf2D) * vector_norm(center_to_dest)))
 
-            print(np.dot(-r_transf2D, center_to_dest))
-            print("ANGLE!!!!!!", final_angle)
-            exit()
-            robot_state = "EXEC_PATH"
+            path_info.path_arc_angle = final_angle
+            print("Arc angle:", final_angle)
+
+            if final_angle < DEAD_AREA_ANGLE:  # about 30 deg
+                robot_state = "PREP_TO_SCORE"
+            else:
+                robot_state = "EXEC_PATH"
+
         elif robot_state == "EXEC_PATH":
 
-            if "BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results:
+            if (("BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results)
+                    or "BOTH_FOUND" in prev_search_results):
 
-                ball_index: int = prev_search_results.index("BALL_FOUND")
-                pins_index: int = prev_search_results.index("PINS_FOUND")
+                if not "BOTH_FOUND" in prev_search_results:
+                    ball_index: int = prev_search_results.index("BALL_FOUND")
+                    pins_index: int = prev_search_results.index("PINS_FOUND")
 
-                left: bool = ball_index > pins_index
+                    left: bool = ball_index > pins_index
 
-                # check, whether there was a full revolution between ball and pins
-                if abs(ball_index - pins_index) > 15:
-                    left = not left
+                    # check, whether there was a full revolution between ball and pins
+                    if abs(ball_index - pins_index) > 15:
+                        left = not left
+                else:
+                    left = not path_info.on_left
 
                 # look 90deg away from ball
                 motor_driver.rotate(math.pi / 2, left)
 
                 # follow arc until you reach shooting position
                 lin_speed: float = 0.2
-                rot_speed: float = lin_speed / path_info.circle_radius
-                motor_driver.set_speed(-rot_speed, lin_speed)
-                motor_driver.move_forward()
+                rot_speed: float = lin_speed / path_info.circle_radius  # radial speed along trajectory
 
+                travel_time: float = (path_info.path_arc_angle * path_info.circle_radius) / lin_speed
+                print("Travel time:", travel_time)
+
+                motor_driver.set_speed(rot_speed if path_info.on_left else -rot_speed, lin_speed)
+                motor_driver.move_forward(travel_time)
+
+                motor_driver.rotate(math.pi / 2, not left)
+                robot_state = "PREP_TO_SCORE"
             else:
                 # previously found both and got here by accident
                 robot_state = "GENERAL_SEARCH"
 
             prev_search_results = []
+        elif robot_state == "PREP_TO_SCORE":
+            # center ball -> check if both_found -> if not -> score
+            path_info.aligning_phase = True
+            robot_state = "CENTER_BALL"
+        elif robot_state == "ALIGN":
+            on_left: bool = get_side(image_results)
 
         main_loop_rate.sleep()
         image_results = []
+
+
+def get_side(image_results: list) -> bool:
+    index: int = 1
+    while len(image_results[5 - index].pin_positions) < 2:
+        index += 1
+
+    pin_center: int = (image_results[5 - index].pin_positions[0][0] +
+                       image_results[5 - index].pin_positions[1][0]) / 2
+
+    return pin_center <= image_results[5 - index].ball_position[0]
 
 
 def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver: MotorDriver,
                        path_info: PathInfo) -> bool:
     # purely for being sure that the ball is in the image
 
-    if only_ball and prev_search_results[-1] == "BALL_FOUND":
+    if only_ball and (prev_search_results[-1] == "BALL_FOUND" or prev_search_results[-1] == "BOTH_FOUND"):
         return True
     elif only_ball:
         motor_driver.rotate(TURN_ANGLE)
@@ -233,7 +263,6 @@ def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver:
 
         # made rotation over 180deg
         if path_info.ball_pins_angle > math.pi:
-            print("JOO", path_info.ball_pins_angle)
             path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - (math.pi / 9))
 
         return True
