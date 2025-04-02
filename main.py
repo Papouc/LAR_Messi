@@ -1,3 +1,4 @@
+from gi.overrides.Gtk import Paned
 from robolab_turtlebot import Turtlebot, Rate
 from scipy.linalg import sqrtm
 
@@ -9,7 +10,7 @@ from hsv_filter import HSVFilter
 from image_processor import ImageProcessor, Image
 from path_info import PathInfo
 from sympy import symbols, Eq, solve
-from typing import Tuple
+from typing import Tuple, Callable
 
 import time
 import numpy as np
@@ -34,22 +35,35 @@ def main() -> None:
     image_results: list = []
     prev_search_results: list = []
 
-    sanity_check: bool = False
-    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE
+    robot_state: str = "IDLE"  # IDLE, GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE, EM_STOP
 
     # math related values
     path_info: PathInfo = PathInfo()
     k_matrix: np.ndarray = turtle.get_rgb_K()
 
-    braking_start_time: float = -1
+    def change_state_onclicked(cb: dict) -> None:
+        nonlocal robot_state
+        robot_state = "GENERAL_SEARCH"
+
+    def change_state_onbumper(cb: dict) -> None:
+        nonlocal robot_state
+        robot_state = "EM_STOP"
+
+    turtle.register_button_event_cb(change_state_onclicked)
+    turtle.register_bumper_event_cb(change_state_onbumper)
+
+    back_off_counter: int = 0
 
     while not turtle.is_shutting_down():
         new_img: Image = turtle.get_rgb_image()
 
+        if new_img is None or robot_state == "IDLE":
+            continue
+
         img_processor: ImageProcessor = ImageProcessor(new_img)
 
         # "yellow" filter
-        ball_filter: HSVFilter = HSVFilter(30, 125, 65, 48) # Fungujici hodnoty 30 130 60 48
+        ball_filter: HSVFilter = HSVFilter(30, 125, 65, 48)  # Fungujici hodnoty 30 130 60 48
         img_processor.add_color_filter(ball_filter)
 
         # "blue" filter
@@ -85,14 +99,13 @@ def main() -> None:
             elif search_result == "PINS_FOUND" and len(path_info.pin_vectors) <= 0:
                 path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
 
-            if state_machine_step(sanity_check, prev_search_results, motor_driver, path_info):
-                if sanity_check:
-                    # succesfully found ball
-                    sanity_check = False
-                    robot_state = "CENTER_BALL"
+            if state_machine_step(prev_search_results, motor_driver, path_info):
+                if search_result == "BALL_FOUND" or search_result == "BOTH_FOUND":
+                    robot_state = "CENTER_BALL"  # decide whether you see ball
                 else:
-                    # initialize double check
-                    sanity_check = True
+                    path_info = PathInfo()
+                    prev_search_results = []
+                    robot_state = "GENERAL_SEARCH"
         elif robot_state == "CENTER_BALL":
             motor_driver.reset_odometry_blocking()
             if center_ball(image_results, motor_driver):
@@ -158,6 +171,13 @@ def main() -> None:
             eq2 = Eq(q1[0] * x + q1[2] * y - (q1[0] * c1[0] + q1[2] * c1[2]), 0)
 
             solutions = solve((eq1, eq2), (x, y))
+
+            # no intersections found
+            if len(solutions) != 2:
+                path_info = PathInfo()
+                prev_search_results = []
+                robot_state = "GENERAL_SEARCH"
+                continue
 
             guess_pos_1: np.ndarray = np.array([c1[0] - solutions[0][0], c1[2] - solutions[0][1]])
             guess_pos_2: np.ndarray = np.array([c1[0] - solutions[1][0], c1[2] - solutions[1][1]])
@@ -244,10 +264,14 @@ def main() -> None:
             robot_state = "CENTER_BALL"
         elif robot_state == "BACK_OFF":
             reverse_walk(motor_driver)
+            back_off_counter += 1;
             robot_state = "CENTER_BALL"
         elif robot_state == "ALIGN":
             if image_results[-1].pin_count < 2:
-                robot_state = "BACK_OFF"
+                if back_off_counter < 2:
+                    robot_state = "BACK_OFF"
+                else:
+                    robot_state = "SCORE"
                 continue
 
             on_left: bool
@@ -297,9 +321,14 @@ def main() -> None:
             motor_driver.move_forward(score_time)
             print("Gooool:D!!")
             break
+        elif robot_state == "EM_STOP":
+            motor_driver.set_speed(0.0, 0.0)
+            break
 
         main_loop_rate.sleep()
         image_results = []
+
+    turtle.play_sound()
 
 
 def reverse_walk(motor_driver: MotorDriver) -> None:
@@ -319,17 +348,8 @@ def get_side(image_results: list) -> Tuple[bool, int]:
     return pin_center <= image_results[5 - index].ball_position[0], pin_center
 
 
-def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver: MotorDriver,
+def state_machine_step(prev_search_results: list, motor_driver: MotorDriver,
                        path_info: PathInfo) -> bool:
-    # purely for being sure that the ball is in the image
-
-    if only_ball and (prev_search_results[-1] == "BALL_FOUND" or prev_search_results[-1] == "BOTH_FOUND"):
-        return True
-    elif only_ball:
-        motor_driver.rotate(TURN_ANGLE)
-        return False
-
-    # TODO: write something for both found :D
     if "BOTH_FOUND" in prev_search_results:
         return True
     elif "BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results:
@@ -337,8 +357,6 @@ def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver:
         ball_last_index: int = len(prev_search_results) - prev_search_results[::-1].index("BALL_FOUND")
         ball_mid_index: int = int((ball_last_index + ball_first_index) / 2)
         pins_index: int = prev_search_results.index("PINS_FOUND")
-
-        print(prev_search_results);
 
         # set angle between ball and pins for later usage in math
         path_info.ball_pins_angle = abs(ball_mid_index - pins_index) * TURN_ANGLE
