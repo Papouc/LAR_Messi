@@ -74,7 +74,7 @@ class MotorDriver:
             return
 
         self._set_direction(left)
-        self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 1.3)
+        self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 1.75)
 
     def reset_odometry_blocking(self) -> None:
         self._turtle.reset_odometry()

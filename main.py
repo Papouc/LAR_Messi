@@ -14,6 +14,7 @@ from typing import Tuple
 import time
 import numpy as np
 import math
+import cv2
 
 LOOP_RATE: int = 10
 TURN_ANGLE: float = (1 / 18) * math.pi
@@ -21,7 +22,7 @@ TURN_ANGLE: float = (1 / 18) * math.pi
 IMAGE_CENTER_X: int = 640 / 2
 X_THRESHOLD: int = 10
 
-DEAD_AREA_ANGLE: float = 0.6
+DEAD_AREA_ANGLE: float = 0.3
 
 
 def main() -> None:
@@ -34,7 +35,7 @@ def main() -> None:
     prev_search_results: list = []
 
     sanity_check: bool = False
-    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE
+    robot_state: str = "GENERAL_SEARCH"  # GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE
 
     # math related values
     path_info: PathInfo = PathInfo()
@@ -48,7 +49,7 @@ def main() -> None:
         img_processor: ImageProcessor = ImageProcessor(new_img)
 
         # "yellow" filter
-        ball_filter: HSVFilter = HSVFilter(30, 130, 60, 48)
+        ball_filter: HSVFilter = HSVFilter(30, 125, 65, 48) # Fungujici hodnoty 30 130 60 48
         img_processor.add_color_filter(ball_filter)
 
         # "blue" filter
@@ -98,6 +99,7 @@ def main() -> None:
                 # add centering offset to angle between pins and ball
                 turtle.wait_for_odometry()
                 path_info.ball_pins_angle += turtle.get_odometry()[2]
+                print("Centering offset", turtle.get_odometry()[2])
 
                 robot_state = "GET_RADIUS"
             elif not image_results[-1].has_ball:
@@ -111,8 +113,11 @@ def main() -> None:
                 x_ball_pos: int = image_results[-1].ball_position[0]
 
                 path_info.circle_radius = get_distance_of_pixel(depth_image, x_ball_pos, y_ball_pos)
+
                 if path_info.aligning_phase:
                     robot_state = "ALIGN"
+                elif path_info.move_closer:
+                    robot_state = "CHECK_DISTANCE"
                 else:
                     robot_state = "COMPUTE_PATH"
 
@@ -135,6 +140,7 @@ def main() -> None:
             perpendicular_q1: np.ndarray = np.array([-q1[2], 0, q1[0]])
 
             beta: float = path_info.ball_pins_angle
+            print("Beta", beta)
 
             transf_matrix: np.ndarray = np.array([
                 [math.cos(beta), 0, math.sin(beta)],
@@ -172,12 +178,29 @@ def main() -> None:
             path_info.path_arc_angle = final_angle
             print("Arc angle:", final_angle)
 
-            if final_angle < DEAD_AREA_ANGLE:  # about 30 deg
-                robot_state = "PREP_TO_SCORE"
-            else:
-                robot_state = "EXEC_PATH"
+            robot_state = "CHECK_DISTANCE"
+            # if final_angle < DEAD_AREA_ANGLE:  # about 30 deg
+            #     robot_state = "PREP_TO_SCORE"
+            # else:
+            #     robot_state = "CHECK_DISTANCE"
 
+        elif robot_state == "CHECK_DISTANCE":
+            path_info.move_closer = False
+
+            if path_info.circle_radius < 0.9:
+                robot_state = "EXEC_PATH"
+            else:
+                path_info.move_closer = True
+                motor_driver.set_speed(0.0, 0.2)
+                motor_driver.move_forward(1);
+                motor_driver.set_speed(0.7, 0.0)
+
+                robot_state = "CENTER_BALL"
         elif robot_state == "EXEC_PATH":
+
+            if path_info.path_arc_angle < DEAD_AREA_ANGLE:
+                robot_state = "PREP_TO_SCORE"
+                continue
 
             if (("BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results)
                     or "BOTH_FOUND" in prev_search_results):
@@ -243,7 +266,7 @@ def main() -> None:
                 lin_speed: float = 0.1
                 rot_speed: float = (lin_speed / path_info.circle_radius) * 2
 
-                motor_driver.set_speed(rot_speed if path_info.on_left else -rot_speed, lin_speed)
+                motor_driver.set_speed(rot_speed if on_left else -rot_speed, lin_speed)
                 motor_driver.move_forward(dist_from_center * path_info.circle_radius / 30)
                 motor_driver.set_speed(0.7, 0.0)
 
@@ -315,6 +338,8 @@ def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver:
         ball_mid_index: int = int((ball_last_index + ball_first_index) / 2)
         pins_index: int = prev_search_results.index("PINS_FOUND")
 
+        print(prev_search_results);
+
         # set angle between ball and pins for later usage in math
         path_info.ball_pins_angle = abs(ball_mid_index - pins_index) * TURN_ANGLE
 
@@ -323,14 +348,15 @@ def state_machine_step(only_ball: bool, prev_search_results: list, motor_driver:
             left: bool = False
             if path_info.ball_pins_angle > math.pi:
                 # rotate around shorter arc
-                path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - (math.pi / 9))
+                path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - 1.75)
                 left = not left
 
+            print("Correction:", path_info.ball_pins_angle)
             motor_driver.rotate(path_info.ball_pins_angle, left)
 
         # made rotation over 180deg
         if path_info.ball_pins_angle > math.pi:
-            path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - (math.pi / 9))
+            path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - 1.75)
 
         return True
 

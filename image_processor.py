@@ -16,7 +16,8 @@ BW_THRESH: int = 30
 BW_MAXVALUE: int = 255
 
 # AREA CONSTS
-MIN_VALID_AREA: int = 400
+MIN_VALID_AREA_BALL: int = 800
+MIN_VALID_AREA_PIN: int = 300
 
 CIRCLE_TO_RECT: float = 1.1
 CIRCLE_TO_HULL: float = 1.3
@@ -69,7 +70,7 @@ class ImageProcessor:
 
         # evaluate all valid contours
         for contour in contours:
-            if cv2.contourArea(contour) <= MIN_VALID_AREA:
+            if cv2.contourArea(contour) <= MIN_VALID_AREA_PIN:
                 continue
 
             hull: np.ndarray = cv2.convexHull(contour)
@@ -91,6 +92,10 @@ class ImageProcessor:
 
             # the ball should have different circle/rect area ratio than the pins
             if min_c_area / min_rect_area < CIRCLE_TO_RECT and min_c_area / cv2.contourArea(hull) < CIRCLE_TO_HULL:
+
+                if cv2.contourArea(contour) <= MIN_VALID_AREA_BALL:
+                    continue
+
                 info.has_ball = True
                 info.ball_position = (int(min_c_center[0]), int(min_c_center[1]))
             elif h / w > 1.9:
