@@ -1,4 +1,5 @@
 from gi.overrides.Gtk import Paned
+from numpy.compat import contextlib_nullcontext
 from robolab_turtlebot import Turtlebot, Rate
 from scipy.linalg import sqrtm
 
@@ -15,13 +16,15 @@ from typing import Tuple, Callable
 import time
 import numpy as np
 import math
-import cv2
+import os
 
 LOOP_RATE: int = 10
 TURN_ANGLE: float = (1 / 18) * math.pi
 
 IMAGE_CENTER_X: int = 640 / 2
 X_THRESHOLD: int = 10
+
+MAX_RESULTS_CACHE: int = 27
 
 DEAD_AREA_ANGLE: float = 0.3
 
@@ -35,19 +38,20 @@ def main() -> None:
     image_results: list = []
     prev_search_results: list = []
 
-    robot_state: str = "IDLE"  # IDLE, GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE, EM_STOP
+    robot_state: str = "IDLE"  # IDLE, GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH, EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE
 
     # math related values
     path_info: PathInfo = PathInfo()
     k_matrix: np.ndarray = turtle.get_rgb_K()
+
+    found_everything: bool = False
 
     def change_state_onclicked(cb: dict) -> None:
         nonlocal robot_state
         robot_state = "GENERAL_SEARCH"
 
     def change_state_onbumper(cb: dict) -> None:
-        nonlocal robot_state
-        robot_state = "EM_STOP"
+        os._exit(0)
 
     turtle.register_button_event_cb(change_state_onclicked)
     turtle.register_bumper_event_cb(change_state_onbumper)
@@ -86,6 +90,20 @@ def main() -> None:
         motor_driver: MotorDriver = MotorDriver(turtle, 0.7, 0.0)
 
         if robot_state == "GENERAL_SEARCH":
+            if found_everything:
+                found_everything = False
+                if search_result == "BALL_FOUND" or search_result == "BOTH_FOUND":
+                    robot_state = "CENTER_BALL"  # decide whether you see ball
+                    continue
+                else:
+                    path_info = PathInfo()
+                    prev_search_results = []
+                    robot_state = "GENERAL_SEARCH"
+                    continue
+
+            if len(prev_search_results) > MAX_RESULTS_CACHE: # needs testing
+                prev_search_results.clear()
+
             prev_search_results.append(search_result)
 
             depth_image: np.ndarray = turtle.get_point_cloud()
@@ -100,12 +118,7 @@ def main() -> None:
                 path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
 
             if state_machine_step(prev_search_results, motor_driver, path_info):
-                if search_result == "BALL_FOUND" or search_result == "BOTH_FOUND":
-                    robot_state = "CENTER_BALL"  # decide whether you see ball
-                else:
-                    path_info = PathInfo()
-                    prev_search_results = []
-                    robot_state = "GENERAL_SEARCH"
+                found_everything = True
         elif robot_state == "CENTER_BALL":
             motor_driver.reset_odometry_blocking()
             if center_ball(image_results, motor_driver):
@@ -320,9 +333,6 @@ def main() -> None:
             score_time: float = dist_to_ball / lin_speed
             motor_driver.move_forward(score_time)
             print("Gooool:D!!")
-            break
-        elif robot_state == "EM_STOP":
-            motor_driver.set_speed(0.0, 0.0)
             break
 
         main_loop_rate.sleep()
