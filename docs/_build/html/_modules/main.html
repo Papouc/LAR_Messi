@@ -1,0 +1,788 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; LAR_Messi 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LAR_Messi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/hsv_filter.html">hsv_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.h_thresh"><code class="docutils literal notranslate"><span class="pre">h_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.s_thresh"><code class="docutils literal notranslate"><span class="pre">s_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.v_thresh"><code class="docutils literal notranslate"><span class="pre">v_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.h_ref"><code class="docutils literal notranslate"><span class="pre">h_ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter"><code class="docutils literal notranslate"><span class="pre">HSVFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.s_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.v_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.h_ref"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.h_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id0"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id1"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id2"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.__init__"><code class="docutils literal notranslate"><span class="pre">HSVFilter.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/image_processor.html">image_processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor"><code class="docutils literal notranslate"><span class="pre">ImageProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.__init__"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.add_color_filter"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.add_color_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.filter_color"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.filter_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.segment_scene"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.segment_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.retrieve_image"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.retrieve_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/main.html">main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.reverse_walk"><code class="docutils literal notranslate"><span class="pre">reverse_walk()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.get_side"><code class="docutils literal notranslate"><span class="pre">get_side()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.state_machine_step"><code class="docutils literal notranslate"><span class="pre">state_machine_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.center_ball"><code class="docutils literal notranslate"><span class="pre">center_ball()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.get_distance_of_pixel"><code class="docutils literal notranslate"><span class="pre">get_distance_of_pixel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.get_pin_vectors"><code class="docutils literal notranslate"><span class="pre">get_pin_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/main.html#main.vector_norm"><code class="docutils literal notranslate"><span class="pre">vector_norm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/path_info.html">path_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo"><code class="docutils literal notranslate"><span class="pre">PathInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.pin_vectors"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.circle_radius"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.ball_pins_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.path_arc_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.on_left"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.from_one_picture"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.aligning_phase"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.score_back_up_done"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.move_closer"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id0"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id1"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id2"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id3"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id4"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id5"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id6"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id7"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id8"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.__init__"><code class="docutils literal notranslate"><span class="pre">PathInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/scene_info.html">scene_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo"><code class="docutils literal notranslate"><span class="pre">SceneInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.has_ball"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.ball_position"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.pin_count"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.pin_positions"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id0"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id1"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id2"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id3"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.__init__"><code class="docutils literal notranslate"><span class="pre">SceneInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/search_engine.html">search_engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine"><code class="docutils literal notranslate"><span class="pre">SearchEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine.__init__"><code class="docutils literal notranslate"><span class="pre">SearchEngine.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine.determine_state"><code class="docutils literal notranslate"><span class="pre">SearchEngine.determine_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/visualizer.html">visualizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer"><code class="docutils literal notranslate"><span class="pre">Visualizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer.refresh_image"><code class="docutils literal notranslate"><span class="pre">Visualizer.refresh_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LAR_Messi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Autonomous TurtleBot Soccer Player System</span>
+
+<span class="sd">This program implements a complete robotic soccer player capable of:</span>
+<span class="sd">0. Starting by pressing a button</span>
+<span class="sd">1. Visual perception using RGB-D camera</span>
+<span class="sd">2. Object detection and tracking</span>
+<span class="sd">3. Path planning and navigation</span>
+<span class="sd">4. Autonomous goal-scoring behavior</span>
+
+<span class="sd">Core Capabilities:</span>
+<span class="sd">- Real-time ball detection using HSV color filtering (yellow)</span>
+<span class="sd">- Goal(gate) post(pin) detection (two blue pins)</span>
+<span class="sd">- Depth perception for distance measurement</span>
+<span class="sd">- State machine-based decision making</span>
+<span class="sd">- Precise motor control for navigation</span>
+<span class="sd">- Visual feedback system</span>
+
+<span class="sd">System Architecture:</span>
+<span class="sd">1. Perception Layer:</span>
+<span class="sd">   - Realsense D435 camera (RGB + Depth)</span>
+<span class="sd">   - HSV color filtering (ball and goal posts)</span>
+<span class="sd">   - Contour analysis for object classification</span>
+
+<span class="sd">2. Processing Layer:</span>
+<span class="sd">   - Image processing pipeline</span>
+<span class="sd">   - Scene analysis and state determination</span>
+<span class="sd">   - Path planning mathematics</span>
+
+<span class="sd">3. Control Layer:</span>
+<span class="sd">   - Finite State Machine (12 states)</span>
+<span class="sd">   - Motor control</span>
+<span class="sd">   - Odometry-based navigation</span>
+
+<span class="sd">State Machine States:</span>
+<span class="sd">IDLE → GENERAL_SEARCH → CENTER_BALL → GET_RADIUS → COMPUTE_PATH →</span>
+<span class="sd">CHECK_DISTANCE → EXEC_PATH → PREP_TO_SCORE → BACK_OFF → ALIGN → SCORE → EM_STOP</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">robolab_turtlebot</span> <span class="kn">import</span> <span class="n">Turtlebot</span><span class="p">,</span> <span class="n">Rate</span>
+<span class="kn">from</span> <span class="nn">motor_driver</span> <span class="kn">import</span> <span class="n">MotorDriver</span>
+<span class="kn">from</span> <span class="nn">scene_info</span> <span class="kn">import</span> <span class="n">SceneInfo</span>
+<span class="kn">from</span> <span class="nn">search_engine</span> <span class="kn">import</span> <span class="n">SearchEngine</span>
+<span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">Visualizer</span>
+<span class="kn">from</span> <span class="nn">hsv_filter</span> <span class="kn">import</span> <span class="n">HSVFilter</span>
+<span class="kn">from</span> <span class="nn">image_processor</span> <span class="kn">import</span> <span class="n">ImageProcessor</span><span class="p">,</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">path_info</span> <span class="kn">import</span> <span class="n">PathInfo</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="c1"># System Constants</span>
+<span class="n">LOOP_RATE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>                  <span class="c1"># Main control loop frequency (Hz)</span>
+<span class="n">TURN_ANGLE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">18</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># Default rotation increment (radians)</span>
+<span class="n">IMAGE_CENTER_X</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">//</span> <span class="mi">2</span>       <span class="c1"># Horizontal center of camera frame</span>
+<span class="n">X_THRESHOLD</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>                <span class="c1"># Ball centering tolerance (pixels)</span>
+<span class="n">DEAD_AREA_ANGLE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>         <span class="c1"># Minimum viable path arc angle (radians)</span>
+
+<span class="c1"># HSV Filter Parameters</span>
+<span class="n">BALL_HSV</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">48</span><span class="p">)</span>   <span class="c1"># Yellow ball detection thresholds</span>
+<span class="n">GOAL_HSV</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">196</span><span class="p">)</span>  <span class="c1"># Blue goal post detection thresholds</span>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../_autosummary/main.html#main.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main control loop for autonomous soccer player.&quot;&quot;&quot;</span>
+    <span class="n">turtle</span><span class="p">:</span> <span class="n">Turtlebot</span> <span class="o">=</span> <span class="n">Turtlebot</span><span class="p">(</span><span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">main_loop_rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="n">Rate</span><span class="p">(</span><span class="n">LOOP_RATE</span><span class="p">)</span>
+
+    <span class="n">visual</span><span class="p">:</span> <span class="n">Visualizer</span> <span class="o">=</span> <span class="n">Visualizer</span><span class="p">(</span><span class="s2">&quot;WINDOW&quot;</span><span class="p">)</span>
+
+    <span class="n">image_results</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">prev_search_results</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Robot state machine states</span>
+    <span class="n">robot_state</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;IDLE&quot;</span>  <span class="c1"># Possible states:</span>
+    <span class="c1"># IDLE, GENERAL_SEARCH, CENTER_BALL, GET_RADIUS, COMPUTE_PATH,</span>
+    <span class="c1"># EXEC_PATH, CHECK_DISTANCE, PREP_TO_SCORE, BACK_OFF, ALIGN, SCORE, EM_STOP</span>
+
+    <span class="c1"># Math related values for path planning</span>
+    <span class="n">path_info</span><span class="p">:</span> <span class="n">PathInfo</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
+    <span class="n">k_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_rgb_K</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">change_state_onclicked</span><span class="p">(</span><span class="n">cb</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback for button press event to start the robot.&quot;&quot;&quot;</span>
+        <span class="k">nonlocal</span> <span class="n">robot_state</span>
+        <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+
+    <span class="k">def</span> <span class="nf">change_state_onbumper</span><span class="p">(</span><span class="n">cb</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback for bumper press event for emergency stop.&quot;&quot;&quot;</span>
+        <span class="k">nonlocal</span> <span class="n">robot_state</span>
+        <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;EM_STOP&quot;</span>
+
+    <span class="n">turtle</span><span class="o">.</span><span class="n">register_button_event_cb</span><span class="p">(</span><span class="n">change_state_onclicked</span><span class="p">)</span>
+    <span class="n">turtle</span><span class="o">.</span><span class="n">register_bumper_event_cb</span><span class="p">(</span><span class="n">change_state_onbumper</span><span class="p">)</span>
+
+    <span class="n">back_off_counter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">():</span>
+        <span class="n">new_img</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_rgb_image</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">new_img</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">img_processor</span><span class="p">:</span> <span class="n">ImageProcessor</span> <span class="o">=</span> <span class="n">ImageProcessor</span><span class="p">(</span><span class="n">new_img</span><span class="p">)</span>
+
+        <span class="c1"># &quot;yellow&quot; filter for ball detection</span>
+        <span class="n">ball_filter</span><span class="p">:</span> <span class="n">HSVFilter</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">48</span><span class="p">)</span>
+        <span class="n">img_processor</span><span class="o">.</span><span class="n">add_color_filter</span><span class="p">(</span><span class="n">ball_filter</span><span class="p">)</span>
+
+        <span class="c1"># &quot;blue&quot; filter for goal pins detection</span>
+        <span class="n">goal_filter</span><span class="p">:</span> <span class="n">HSVFilter</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">196</span><span class="p">)</span>
+        <span class="n">img_processor</span><span class="o">.</span><span class="n">add_color_filter</span><span class="p">(</span><span class="n">goal_filter</span><span class="p">)</span>
+
+        <span class="n">img_processor</span><span class="o">.</span><span class="n">filter_color</span><span class="p">()</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="n">SceneInfo</span> <span class="o">=</span> <span class="n">img_processor</span><span class="o">.</span><span class="n">segment_scene</span><span class="p">(</span><span class="n">draw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">image_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="n">visual</span><span class="o">.</span><span class="n">refresh_image</span><span class="p">(</span><span class="n">img_processor</span><span class="o">.</span><span class="n">retrieve_image</span><span class="p">(),</span> <span class="n">center_point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">search_engine</span><span class="p">:</span> <span class="n">SearchEngine</span> <span class="o">=</span> <span class="n">SearchEngine</span><span class="p">(</span><span class="n">image_results</span><span class="p">)</span>
+        <span class="n">search_result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">search_engine</span><span class="o">.</span><span class="n">determine_state</span><span class="p">()</span>
+
+        <span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span> <span class="o">=</span> <span class="n">MotorDriver</span><span class="p">(</span><span class="n">turtle</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="c1"># State machine implementation</span>
+        <span class="k">if</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span><span class="p">:</span>
+            <span class="n">prev_search_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_result</span><span class="p">)</span>
+
+            <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BOTH_FOUND&quot;</span><span class="p">:</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span>
+                    <span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">from_one_picture</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_side</span><span class="p">(</span><span class="n">image_results</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="p">(</span><span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">and</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span>
+                    <span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">,</span>
+                                  <span class="n">path_info</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">or</span>
+                        <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BOTH_FOUND&quot;</span><span class="p">):</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">path_info</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
+                    <span class="n">prev_search_results</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;CENTER_BALL&quot;</span><span class="p">:</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">reset_odometry_blocking</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">center_ball</span><span class="p">(</span><span class="n">image_results</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">):</span>
+                <span class="c1"># add centering offset to angle between pins and ball</span>
+                <span class="n">turtle</span><span class="o">.</span><span class="n">wait_for_odometry</span><span class="p">()</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">+=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_odometry</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Centering offset&quot;</span><span class="p">,</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_odometry</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GET_RADIUS&quot;</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">has_ball</span><span class="p">:</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;GET_RADIUS&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">has_ball</span><span class="p">:</span>
+                <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
+                <span class="n">y_ball_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x_ball_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">=</span> <span class="n">get_distance_of_pixel</span><span class="p">(</span>
+                    <span class="n">depth_image</span><span class="p">,</span> <span class="n">x_ball_pos</span><span class="p">,</span> <span class="n">y_ball_pos</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">aligning_phase</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;ALIGN&quot;</span>
+                <span class="k">elif</span> <span class="n">path_info</span><span class="o">.</span><span class="n">move_closer</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CHECK_DISTANCE&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;COMPUTE_PATH&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;COMPUTE_PATH&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path_info</span><span class="o">.</span><span class="n">from_one_picture</span><span class="p">:</span>
+                <span class="n">ball_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
+                <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
+
+                <span class="c1"># check if full revolution between ball and pins</span>
+                <span class="k">if</span> <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="ow">and</span>
+                     <span class="n">ball_index</span> <span class="o">&gt;</span> <span class="n">pins_index</span><span class="p">)</span> <span class="ow">or</span>
+                    <span class="p">(</span><span class="n">pins_index</span> <span class="o">&gt;</span> <span class="n">ball_index</span> <span class="ow">and</span>
+                     <span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)):</span>
+                    <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">q1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="n">c1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q1</span> <span class="o">/</span> <span class="mi">2</span>
+
+            <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Beta&quot;</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+            <span class="n">transf_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)]</span>
+            <span class="p">])</span>
+
+            <span class="n">r_transf</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">transf_matrix</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">])</span>
+
+            <span class="c1"># TODO: typdef</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span>
+                     <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span>
+                     <span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">solutions</span> <span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve</span><span class="p">((</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+            <span class="c1"># no intersections found</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">solutions</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">path_info</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
+                <span class="n">prev_search_results</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+                <span class="k">continue</span>
+
+            <span class="n">guess_pos_1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">guess_pos_2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+
+            <span class="n">dest_pos</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+            <span class="k">if</span> <span class="n">vector_norm</span><span class="p">(</span><span class="n">guess_pos_2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">vector_norm</span><span class="p">(</span><span class="n">guess_pos_1</span><span class="p">):</span>
+                <span class="n">dest_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dest_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+
+            <span class="n">r_transf2D</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">r_transf</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+            <span class="n">center_to_dest</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">dest_pos</span> <span class="o">-</span> <span class="n">r_transf2D</span>
+
+            <span class="n">dot_product</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> \
+                                 <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">final_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">dot_product</span> <span class="o">/</span>
+                                           <span class="p">(</span><span class="n">vector_norm</span><span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">)</span> <span class="o">*</span>
+                                            <span class="n">vector_norm</span><span class="p">(</span><span class="n">center_to_dest</span><span class="p">)))</span>
+
+            <span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">=</span> <span class="n">final_angle</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Arc angle:&quot;</span><span class="p">,</span> <span class="n">final_angle</span><span class="p">)</span>
+
+            <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CHECK_DISTANCE&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;CHECK_DISTANCE&quot;</span><span class="p">:</span>
+            <span class="n">path_info</span><span class="o">.</span><span class="n">move_closer</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">&lt;</span> <span class="mf">0.9</span><span class="p">:</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;EXEC_PATH&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">move_closer</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;EXEC_PATH&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">&lt;</span> <span class="n">DEAD_AREA_ANGLE</span><span class="p">:</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;PREP_TO_SCORE&quot;</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span> <span class="ow">and</span>
+                 <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">)</span> <span class="ow">or</span>
+                    <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">:</span>
+                    <span class="n">ball_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
+                    <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
+
+                    <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">ball_index</span> <span class="o">&gt;</span> <span class="n">pins_index</span>
+
+                    <span class="c1"># check if full revolution between ball and pins</span>
+                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
+                        <span class="n">left</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">left</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span>
+
+                <span class="c1"># look 90deg away from ball</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">left</span><span class="p">)</span>
+
+                <span class="c1"># follow arc until shooting position</span>
+                <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>
+                <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">lin_speed</span> <span class="o">/</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span>
+
+                <span class="n">travel_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">*</span>
+                                      <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">/</span> <span class="n">lin_speed</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Travel time:&quot;</span><span class="p">,</span> <span class="n">travel_time</span><span class="p">)</span>
+
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span>
+                    <span class="n">rot_speed</span> <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward_accel</span><span class="p">(</span><span class="n">travel_time</span><span class="p">)</span>
+
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">not</span> <span class="n">left</span><span class="p">)</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;PREP_TO_SCORE&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># previously found both and got here by accident</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+
+            <span class="n">prev_search_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;PREP_TO_SCORE&quot;</span><span class="p">:</span>
+            <span class="n">path_info</span><span class="o">.</span><span class="n">aligning_phase</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;BACK_OFF&quot;</span><span class="p">:</span>
+            <span class="n">reverse_walk</span><span class="p">(</span><span class="n">motor_driver</span><span class="p">)</span>
+            <span class="n">back_off_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;ALIGN&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pin_count</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">back_off_counter</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;BACK_OFF&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;SCORE&quot;</span>
+                <span class="k">continue</span>
+
+            <span class="n">on_left</span><span class="p">:</span> <span class="nb">bool</span>
+            <span class="n">pin_center</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">on_left</span><span class="p">,</span> <span class="n">pin_center</span> <span class="o">=</span> <span class="n">get_side</span><span class="p">(</span><span class="n">image_results</span><span class="p">)</span>
+            <span class="n">ball_center</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">dist_from_center</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ball_center</span> <span class="o">-</span> <span class="n">pin_center</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pixel distance:&quot;</span><span class="p">,</span> <span class="n">dist_from_center</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">dist_from_center</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;SCORE&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">not</span> <span class="n">on_left</span><span class="p">)</span>
+
+                <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+                <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">lin_speed</span> <span class="o">/</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span>
+                    <span class="n">rot_speed</span> <span class="k">if</span> <span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span>
+                    <span class="n">dist_from_center</span> <span class="o">*</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">/</span> <span class="mi">30</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">on_left</span><span class="p">)</span>
+                <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;PREP_TO_SCORE&quot;</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;SCORE&quot;</span><span class="p">:</span>
+            <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
+
+            <span class="n">ball_x</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">ball_y</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">ball_x</span><span class="p">,</span> <span class="n">ball_y</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span>
+
+            <span class="n">dist_to_ball</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">depth_image</span><span class="p">[</span><span class="n">ball_y</span><span class="p">][</span><span class="n">ball_x</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="c1"># back off from the ball a little</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dist_to_ball</span> <span class="o">&lt;</span> <span class="mf">0.6</span> <span class="ow">and</span>
+                    <span class="ow">not</span> <span class="n">path_info</span><span class="o">.</span><span class="n">score_back_up_done</span><span class="p">):</span>
+                <span class="n">reverse_walk</span><span class="p">(</span><span class="n">motor_driver</span><span class="p">)</span>
+
+            <span class="n">path_info</span><span class="o">.</span><span class="n">score_back_up_done</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span>
+            <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">/</span> <span class="n">dist_to_ball</span>
+
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
+
+            <span class="n">score_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">dist_to_ball</span> <span class="o">/</span> <span class="n">lin_speed</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="n">score_time</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gooool:D!!&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;EM_STOP&quot;</span><span class="p">:</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="n">main_loop_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+        <span class="n">image_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">turtle</span><span class="o">.</span><span class="n">play_sound</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="reverse_walk">
+<a class="viewcode-back" href="../_autosummary/main.html#main.reverse_walk">[docs]</a>
+<span class="k">def</span> <span class="nf">reverse_walk</span><span class="p">(</span><span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make the robot move backward for a short distance.&quot;&quot;&quot;</span>
+    <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">)</span>
+    <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_side">
+<a class="viewcode-back" href="../_autosummary/main.html#main.get_side">[docs]</a>
+<span class="k">def</span> <span class="nf">get_side</span><span class="p">(</span><span class="n">image_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine which side of the field the robot is on relative to goal center.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image_results: List of recent image processing results</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple containing:</span>
+<span class="sd">        - bool: True if ball is on left side of goal center</span>
+<span class="sd">        - int: x-coordinate of goal center in image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_results</span><span class="p">[</span><span class="mi">5</span> <span class="o">-</span> <span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">pin_positions</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">pin_center</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">image_results</span><span class="p">[</span><span class="mi">5</span> <span class="o">-</span> <span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">pin_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>
+                       <span class="n">image_results</span><span class="p">[</span><span class="mi">5</span> <span class="o">-</span> <span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">pin_positions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">pin_center</span> <span class="o">&lt;=</span> <span class="n">image_results</span><span class="p">[</span><span class="mi">5</span> <span class="o">-</span> <span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pin_center</span></div>
+
+
+
+<div class="viewcode-block" id="state_machine_step">
+<a class="viewcode-back" href="../_autosummary/main.html#main.state_machine_step">[docs]</a>
+<span class="k">def</span> <span class="nf">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                       <span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span><span class="p">,</span>
+                       <span class="n">path_info</span><span class="p">:</span> <span class="n">PathInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle state transitions for the GENERAL_SEARCH state.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prev_search_results: List of previous search results</span>
+<span class="sd">        motor_driver: Motor controller instance</span>
+<span class="sd">        path_info: Path planning information container</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if state transition should occur, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span> <span class="ow">and</span>
+            <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">):</span>
+        <span class="n">ball_first_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
+        <span class="n">ball_last_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">)</span> <span class="o">-</span>
+                                <span class="n">prev_search_results</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">))</span>
+        <span class="n">ball_mid_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">ball_last_index</span> <span class="o">+</span> <span class="n">ball_first_index</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
+
+        <span class="c1"># set angle between ball and pins for later usage</span>
+        <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_mid_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">*</span>
+                                     <span class="n">TURN_ANGLE</span><span class="p">)</span>
+
+        <span class="c1"># look back at the ball</span>
+        <span class="k">if</span> <span class="n">pins_index</span> <span class="o">&gt;</span> <span class="n">ball_first_index</span><span class="p">:</span>
+            <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
+                <span class="c1"># rotate around shorter arc</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">left</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correction:&quot;</span><span class="p">,</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">,</span> <span class="n">left</span><span class="p">)</span>
+
+        <span class="c1"># made rotation over 180deg</span>
+        <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
+            <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+                <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">TURN_ANGLE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="center_ball">
+<a class="viewcode-back" href="../_autosummary/main.html#main.center_ball">[docs]</a>
+<span class="k">def</span> <span class="nf">center_ball</span><span class="p">(</span><span class="n">image_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Center the ball in the robot&#39;s field of view.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image_results: List of recent image processing results</span>
+<span class="sd">        motor_driver: Motor controller instance</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True when ball is centered, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">has_ball</span><span class="p">:</span>
+        <span class="n">dist_from_mid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                              <span class="n">IMAGE_CENTER_X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dist_from_mid</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">X_THRESHOLD</span><span class="p">:</span>
+            <span class="c1"># ball is centered, stop rotation</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate_non_blocking</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">dist_from_mid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate_non_blocking</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate_non_blocking</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="get_distance_of_pixel">
+<a class="viewcode-back" href="../_autosummary/main.html#main.get_distance_of_pixel">[docs]</a>
+<span class="k">def</span> <span class="nf">get_distance_of_pixel</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                          <span class="n">x_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate average distance of a 7x7 pixel area around given coordinates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        depth_image: 2D array of depth values</span>
+<span class="sd">        x_center: Center x-coordinate</span>
+<span class="sd">        y_center: Center y-coordinate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Average distance in meters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">depth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_center</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y_center</span> <span class="o">+</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_center</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x_center</span> <span class="o">+</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="n">depth</span> <span class="o">+=</span> <span class="n">depth_image</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">depth</span> <span class="o">/</span> <span class="p">(</span><span class="mi">7</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_pin_vectors">
+<a class="viewcode-back" href="../_autosummary/main.html#main.get_pin_vectors">[docs]</a>
+<span class="k">def</span> <span class="nf">get_pin_vectors</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                    <span class="n">k_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                    <span class="n">scene_info</span><span class="p">:</span> <span class="n">SceneInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert pin positions from image coordinates to 3D camera space vectors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        depth_image: 2D array of depth values</span>
+<span class="sd">        k_matrix: Camera intrinsic matrix</span>
+<span class="sd">        scene_info: Scene information containing pin positions</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of 3D vectors representing pin positions in camera space</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vectors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">pin_pos</span> <span class="ow">in</span> <span class="n">scene_info</span><span class="o">.</span><span class="n">pin_positions</span><span class="p">:</span>
+        <span class="c1"># (pixel - Cx) * (d/Fx)</span>
+        <span class="n">x_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> \
+                            <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span>
+                             <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> \
+                             <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span>
+                              <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">z_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># create pin vectors in camera space</span>
+        <span class="n">pin_vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">x_component</span><span class="p">,</span> <span class="n">y_component</span><span class="p">,</span> <span class="n">z_component</span><span class="p">])</span>
+        <span class="n">vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_vector</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">vectors</span></div>
+
+
+
+<div class="viewcode-block" id="vector_norm">
+<a class="viewcode-back" href="../_autosummary/main.html#main.vector_norm">[docs]</a>
+<span class="k">def</span> <span class="nf">vector_norm</span><span class="p">(</span><span class="n">vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Euclidean norm (magnitude) of a 2D vector.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Adam Hendrych, David Horňáček, Adam Hejtmánek.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

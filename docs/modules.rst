@@ -1,15 +1,13 @@
-
-API Documentation
-=================
+modules
+=======
 
 .. autosummary::
    :toctree: _autosummary
 
-   main
-   motor_driver
    hsv_filter
-   path_info
    image_processor
+   main
+   path_info
    scene_info
    search_engine
    visualizer
