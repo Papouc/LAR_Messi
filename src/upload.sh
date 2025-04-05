@@ -16,7 +16,7 @@
 #   - Password file should be chmod 600
 # ==============================================
 
-SOURCE="/home/papouc/Desktop/LAR_Messi"      # Source dir
+SOURCE="/home/papouc/Desktop/LAR_Messi/src"      # Source dir
 DEST="/home/papouc/Desktop/LAR_CACHE"        # Staging dir
 EXTENSION="py"                               # File extension
 
