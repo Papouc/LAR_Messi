@@ -74,12 +74,7 @@ IMAGE_CENTER_X: int = 640 // 2  # Horizontal center of camera frame
 X_THRESHOLD: int = 10  # Ball centering tolerance (pixels)
 DEAD_AREA_ANGLE: float = 0.3  # Minimum viable path arc angle (radians)
 
-IMAGE_CENTER_X: int = 640 / 2
-X_THRESHOLD: int = 10
-
 MAX_RESULTS_CACHE: int = 27
-
-DEAD_AREA_ANGLE: float = 0.3
 
 
 def main() -> None:
@@ -160,7 +155,7 @@ def main() -> None:
                     robot_state = "GENERAL_SEARCH"
                     continue
 
-            if len(prev_search_results) > MAX_RESULTS_CACHE: # needs testing
+            if len(prev_search_results) > MAX_RESULTS_CACHE:
                 prev_search_results.clear()
 
             prev_search_results.append(search_result)
