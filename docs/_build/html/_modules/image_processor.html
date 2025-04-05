@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>image_processor &mdash; LAR_Messi 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LAR_Messi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/hsv_filter.html">hsv_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.h_thresh"><code class="docutils literal notranslate"><span class="pre">h_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.s_thresh"><code class="docutils literal notranslate"><span class="pre">s_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.v_thresh"><code class="docutils literal notranslate"><span class="pre">v_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.h_ref"><code class="docutils literal notranslate"><span class="pre">h_ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter"><code class="docutils literal notranslate"><span class="pre">HSVFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.s_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.v_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.h_ref"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.h_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id0"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id1"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#id2"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/hsv_filter.html#hsv_filter.HSVFilter.__init__"><code class="docutils literal notranslate"><span class="pre">HSVFilter.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/path_info.html">path_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo"><code class="docutils literal notranslate"><span class="pre">PathInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.pin_vectors"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.circle_radius"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.ball_pins_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.path_arc_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.on_left"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.from_one_picture"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.aligning_phase"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.score_back_up_done"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.move_closer"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id0"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id1"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id2"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id3"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id4"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id5"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id6"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id7"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#id8"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/path_info.html#path_info.PathInfo.__init__"><code class="docutils literal notranslate"><span class="pre">PathInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/image_processor.html">image_processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor"><code class="docutils literal notranslate"><span class="pre">ImageProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.__init__"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.add_color_filter"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.add_color_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.filter_color"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.filter_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.segment_scene"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.segment_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.retrieve_image"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.retrieve_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/scene_info.html">scene_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo"><code class="docutils literal notranslate"><span class="pre">SceneInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.has_ball"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.ball_position"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.pin_count"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.pin_positions"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id0"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id1"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id2"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#id3"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/scene_info.html#scene_info.SceneInfo.__init__"><code class="docutils literal notranslate"><span class="pre">SceneInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/search_engine.html">search_engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine"><code class="docutils literal notranslate"><span class="pre">SearchEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine.__init__"><code class="docutils literal notranslate"><span class="pre">SearchEngine.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/search_engine.html#search_engine.SearchEngine.determine_state"><code class="docutils literal notranslate"><span class="pre">SearchEngine.determine_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/visualizer.html">visualizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer"><code class="docutils literal notranslate"><span class="pre">Visualizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/visualizer.html#visualizer.Visualizer.refresh_image"><code class="docutils literal notranslate"><span class="pre">Visualizer.refresh_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LAR_Messi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">image_processor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for image_processor</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Image Processing Pipeline for TurtleBot Soccer Player</span>
+
+<span class="sd">This module handles all image processing tasks for the robotic soccer system,</span>
+<span class="sd">including:</span>
+<span class="sd">- Color filtering in HSV space</span>
+<span class="sd">- Contour detection and analysis</span>
+<span class="sd">- Object classification (ball vs goal posts)</span>
+<span class="sd">- Scene segmentation and feature extraction</span>
+
+<span class="sd">The ImageProcessor class provides methods to:</span>
+<span class="sd">1. Apply multiple HSV color filters to isolate objects of interest</span>
+<span class="sd">2. Convert filtered images to binary representations</span>
+<span class="sd">3. Detect and analyze contours to classify objects</span>
+<span class="sd">4. Extract positional information about detected objects</span>
+
+<span class="sd">Key Features:</span>
+<span class="sd">- Uses HSV color space for robust color filtering</span>
+<span class="sd">- Employs contour analysis to distinguish between ball and goal posts</span>
+<span class="sd">- Provides geometric shape analysis (circle vs rectangle ratios)</span>
+<span class="sd">- Maintains internal state of processed images for visualization</span>
+
+<span class="sd">Constants:</span>
+<span class="sd">- BW_THRESH: Threshold for binary image conversion</span>
+<span class="sd">- BW_MAXVALUE: Maximum value for binary thresholding</span>
+<span class="sd">- MIN_VALID_AREA_BALL: Minimum contour area to consider as valid ball</span>
+<span class="sd">- MIN_VALID_AREA_PIN: Minimum contour area to consider as valid goal post</span>
+<span class="sd">- CIRCLE_TO_RECT: Circle-to-rectangle area ratio threshold for ball detection</span>
+<span class="sd">- CIRCLE_TO_HULL: Circle-to-hull area ratio threshold for ball detection</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">scene_info</span> <span class="kn">import</span> <span class="n">SceneInfo</span>
+<span class="kn">from</span> <span class="nn">hsv_filter</span> <span class="kn">import</span> <span class="n">HSVFilter</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="c1"># Type alias for image arrays</span>
+<span class="n">Image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+
+<span class="c1"># Binary thresholding constants</span>
+<span class="n">BW_THRESH</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># Threshold value for binary conversion</span>
+<span class="n">BW_MAXVALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">255</span>  <span class="c1"># Maximum pixel value for binary thresholding</span>
+
+<span class="c1"># Minimum valid contour areas</span>
+<span class="n">MIN_VALID_AREA_BALL</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span>  <span class="c1"># Minimum area to consider as valid ball</span>
+<span class="n">MIN_VALID_AREA_PIN</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># Minimum area to consider as valid goal post</span>
+
+<span class="c1"># Shape ratio thresholds for ball detection</span>
+<span class="n">CIRCLE_TO_RECT</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span>  <span class="c1"># Circle-to-rectangle area ratio threshold</span>
+<span class="n">CIRCLE_TO_HULL</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.3</span>  <span class="c1"># Circle-to-convex-hull area ratio threshold</span>
+
+
+<div class="viewcode-block" id="ImageProcessor">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor">[docs]</a>
+<span class="k">class</span> <span class="nc">ImageProcessor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main image processing class for filtering, segmentation and detection.</span>
+<span class="sd">    Also handles contour calculation and comparison of visible ball and pins</span>
+<span class="sd">    to perfect circle and square respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ImageProcessor.__init__">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the ImageProcessor with an input image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img (Image): Input BGR image as numpy array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HSVFilter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.add_color_filter">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.add_color_filter">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_color_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_add</span><span class="p">:</span> <span class="n">HSVFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an HSV color filter to the processing pipeline.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            to_add (HSVFilter): HSV filter to be added</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_add</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.filter_color">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.filter_color">[docs]</a>
+    <span class="k">def</span> <span class="nf">filter_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply all registered HSV filters to the image.</span>
+
+<span class="sd">        Creates binary masks for each filter and combines them to isolate</span>
+<span class="sd">        objects of interest. Performs morphological opening to reduce noise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_filters</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No filter added :D!!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Convert to HSV color space</span>
+        <span class="n">hsv_image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+        <span class="c1"># Create masks for each filter</span>
+        <span class="k">for</span> <span class="n">hsv_filter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_filters</span><span class="p">:</span>
+            <span class="n">h_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">hsv_filter</span><span class="o">.</span><span class="n">h_ref</span> <span class="o">-</span> <span class="n">hsv_image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="n">h_diff</span> <span class="o">&lt;</span> <span class="n">hsv_filter</span><span class="o">.</span><span class="n">h_thresh</span><span class="p">)</span> <span class="o">&amp;</span>
+                    <span class="p">(</span><span class="n">hsv_image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hsv_filter</span><span class="o">.</span><span class="n">v_thresh</span><span class="p">)</span> <span class="o">&amp;</span>
+                    <span class="p">(</span><span class="n">hsv_image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hsv_filter</span><span class="o">.</span><span class="n">s_thresh</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+        <span class="c1"># Combine all masks</span>
+        <span class="n">final_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">mask_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="p">)):</span>
+            <span class="n">final_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">final_mask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="p">[</span><span class="n">mask_i</span><span class="p">])</span>
+
+        <span class="c1"># Apply combined mask</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">[</span><span class="o">~</span><span class="n">final_mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Denoise using morphological opening</span>
+        <span class="n">kernel</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.segment_scene">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.segment_scene">[docs]</a>
+    <span class="k">def</span> <span class="nf">segment_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">draw</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SceneInfo</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analyze the filtered image to detect and classify objects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            draw (bool): Whether to draw contours on the processed image</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            SceneInfo: Object containing detected scene information</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">info</span><span class="p">:</span> <span class="n">SceneInfo</span> <span class="o">=</span> <span class="n">SceneInfo</span><span class="p">()</span>
+
+        <span class="c1"># Convert to grayscale and threshold</span>
+        <span class="n">bw_image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">)</span>
+        <span class="n">bw_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">bw_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">bw_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span>
+            <span class="n">bw_image</span><span class="p">,</span> <span class="n">BW_THRESH</span><span class="p">,</span> <span class="n">BW_MAXVALUE</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+
+        <span class="c1"># Find contours in binary image</span>
+        <span class="n">contours</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+        <span class="n">contours</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span>
+            <span class="n">bw_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_NONE</span><span class="p">)</span>
+
+        <span class="c1"># Analyze each contour</span>
+        <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">MIN_VALID_AREA_PIN</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Calculate contour properties</span>
+            <span class="n">hull</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convexHull</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="n">min_c_center</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+            <span class="n">min_c_radius</span><span class="p">:</span> <span class="nb">float</span>
+            <span class="n">min_c_center</span><span class="p">,</span> <span class="n">min_c_radius</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minEnclosingCircle</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="n">min_rect</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">cv2</span><span class="o">.</span><span class="n">minAreaRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="n">min_c_area</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">min_c_radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">min_rect_area</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">min_rect</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">min_rect</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+
+            <span class="c1"># Classify as ball based on shape ratios</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">min_c_area</span> <span class="o">/</span> <span class="n">min_rect_area</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_RECT</span> <span class="ow">and</span>
+                    <span class="n">min_c_area</span> <span class="o">/</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">hull</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_HULL</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">MIN_VALID_AREA_BALL</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">info</span><span class="o">.</span><span class="n">has_ball</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">ball_position</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                      <span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+                <span class="c1"># Classify as goal post based on aspect ratio</span>
+            <span class="k">elif</span> <span class="n">h</span> <span class="o">/</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="mf">1.9</span><span class="p">:</span>
+                <span class="n">cx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">cy</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_created_masks</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">cy</span><span class="p">][</span><span class="n">cx</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">info</span><span class="o">.</span><span class="n">pin_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">info</span><span class="o">.</span><span class="n">pin_positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">))</span>
+
+            <span class="c1"># Visualization (if enabled)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">draw</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">box</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">min_rect</span><span class="p">)</span>
+            <span class="n">box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="p">[</span><span class="n">box</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="p">[</span><span class="n">hull</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">info</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.retrieve_image">
+<a class="viewcode-back" href="../_autosummary/image_processor.html#image_processor.ImageProcessor.retrieve_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">retrieve_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Image</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the processed image with optional visualizations.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Image: The current processed image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Adam Hendrych, David Horňáček, Adam Hejtmánek.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

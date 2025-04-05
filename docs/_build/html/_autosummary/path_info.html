@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>path_info &mdash; LAR_Messi 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="image_processor" href="image_processor.html" />
+    <link rel="prev" title="hsv_filter" href="hsv_filter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LAR_Messi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hsv_filter.html">hsv_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.h_thresh"><code class="docutils literal notranslate"><span class="pre">h_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.s_thresh"><code class="docutils literal notranslate"><span class="pre">s_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.v_thresh"><code class="docutils literal notranslate"><span class="pre">v_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.h_ref"><code class="docutils literal notranslate"><span class="pre">h_ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter"><code class="docutils literal notranslate"><span class="pre">HSVFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.s_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.v_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.h_ref"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.h_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id0"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id1"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id2"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.__init__"><code class="docutils literal notranslate"><span class="pre">HSVFilter.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">path_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#path_info.PathInfo"><code class="docutils literal notranslate"><span class="pre">PathInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.pin_vectors"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.circle_radius"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.ball_pins_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.path_arc_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.on_left"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.from_one_picture"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.aligning_phase"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.score_back_up_done"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.move_closer"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path_info.PathInfo.__init__"><code class="docutils literal notranslate"><span class="pre">PathInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor"><code class="docutils literal notranslate"><span class="pre">ImageProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.__init__"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.add_color_filter"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.add_color_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.filter_color"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.filter_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.segment_scene"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.segment_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.retrieve_image"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.retrieve_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_info.html">scene_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo"><code class="docutils literal notranslate"><span class="pre">SceneInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.has_ball"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.ball_position"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.pin_count"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.pin_positions"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id0"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id1"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id2"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id3"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.__init__"><code class="docutils literal notranslate"><span class="pre">SceneInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="search_engine.html">search_engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine"><code class="docutils literal notranslate"><span class="pre">SearchEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine.__init__"><code class="docutils literal notranslate"><span class="pre">SearchEngine.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine.determine_state"><code class="docutils literal notranslate"><span class="pre">SearchEngine.determine_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visualizer.html">visualizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visualizer.html#visualizer.Visualizer"><code class="docutils literal notranslate"><span class="pre">Visualizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="visualizer.html#visualizer.Visualizer.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="visualizer.html#visualizer.Visualizer.refresh_image"><code class="docutils literal notranslate"><span class="pre">Visualizer.refresh_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LAR_Messi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../modules.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">path_info</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/path_info.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-path_info">
+<span id="path-info"></span><h1>path_info<a class="headerlink" href="#module-path_info" title="Link to this heading"></a></h1>
+<p>Path Planning Information Container for TurtleBot Soccer Player.</p>
+<p>This module defines the PathInfo dataclass which stores all necessary
+information for navigation and path planning during soccer operations.</p>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#path_info.PathInfo" title="path_info.PathInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PathInfo</span></code></a>(pin_vectors, circle_radius, ...)</p></td>
+<td><p>Centralized storage for path planning and navigation information.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="path_info.PathInfo">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">path_info.</span></span><span class="sig-name descname"><span class="pre">PathInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_vectors:</span> <span class="pre">~typing.List</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circle_radius:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ball_pins_angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_arc_angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_left:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_one_picture:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aligning_phase:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_back_up_done:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_closer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/path_info.html#PathInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#path_info.PathInfo" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Centralized storage for path planning and navigation information.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.pin_vectors">
+<span class="sig-name descname"><span class="pre">pin_vectors</span></span><a class="headerlink" href="#path_info.PathInfo.pin_vectors" title="Link to this definition"></a></dt>
+<dd><p>3D vectors representing pin positions in camera space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.circle_radius">
+<span class="sig-name descname"><span class="pre">circle_radius</span></span><a class="headerlink" href="#path_info.PathInfo.circle_radius" title="Link to this definition"></a></dt>
+<dd><p>Calculated distance to the ball in meters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.ball_pins_angle">
+<span class="sig-name descname"><span class="pre">ball_pins_angle</span></span><a class="headerlink" href="#path_info.PathInfo.ball_pins_angle" title="Link to this definition"></a></dt>
+<dd><p>Relative angle between ball and goal posts in radians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.path_arc_angle">
+<span class="sig-name descname"><span class="pre">path_arc_angle</span></span><a class="headerlink" href="#path_info.PathInfo.path_arc_angle" title="Link to this definition"></a></dt>
+<dd><p>Calculated arc angle for navigation path in radians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.on_left">
+<span class="sig-name descname"><span class="pre">on_left</span></span><a class="headerlink" href="#path_info.PathInfo.on_left" title="Link to this definition"></a></dt>
+<dd><p>Flag indicating if ball is on left side relative to goal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.from_one_picture">
+<span class="sig-name descname"><span class="pre">from_one_picture</span></span><a class="headerlink" href="#path_info.PathInfo.from_one_picture" title="Link to this definition"></a></dt>
+<dd><p>Flag if all objects were detected in single frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.aligning_phase">
+<span class="sig-name descname"><span class="pre">aligning_phase</span></span><a class="headerlink" href="#path_info.PathInfo.aligning_phase" title="Link to this definition"></a></dt>
+<dd><p>Flag indicating if robot is in final alignment phase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.score_back_up_done">
+<span class="sig-name descname"><span class="pre">score_back_up_done</span></span><a class="headerlink" href="#path_info.PathInfo.score_back_up_done" title="Link to this definition"></a></dt>
+<dd><p>Flag tracking backup before scoring was performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="path_info.PathInfo.move_closer">
+<span class="sig-name descname"><span class="pre">move_closer</span></span><a class="headerlink" href="#path_info.PathInfo.move_closer" title="Link to this definition"></a></dt>
+<dd><p>Flag indicating if robot needs to reduce distance to ball.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">pin_vectors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">circle_radius</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">ball_pins_angle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">path_arc_angle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">on_left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">from_one_picture</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">aligning_phase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">score_back_up_done</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">move_closer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="path_info.PathInfo.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_vectors:</span> <span class="pre">~typing.List</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circle_radius:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ball_pins_angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_arc_angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_left:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_one_picture:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aligning_phase:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_back_up_done:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_closer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#path_info.PathInfo.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hsv_filter.html" class="btn btn-neutral float-left" title="hsv_filter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="image_processor.html" class="btn btn-neutral float-right" title="image_processor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Adam Hendrych, David Horňáček, Adam Hejtmánek.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
