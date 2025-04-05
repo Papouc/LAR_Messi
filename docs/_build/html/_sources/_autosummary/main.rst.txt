@@ -1,0 +1,12 @@
+Main
+====
+
+.. automodule:: main
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+
+      main
+   

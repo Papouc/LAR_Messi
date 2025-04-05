@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>motor_driver &mdash; LAR_Messi 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hsv_filter" href="hsv_filter.html" />
+    <link rel="prev" title="API Documentation" href="../modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LAR_Messi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">motor_driver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motor_driver.MotorDriver"><code class="docutils literal notranslate"><span class="pre">MotorDriver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.__init__"><code class="docutils literal notranslate"><span class="pre">MotorDriver.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.set_speed"><code class="docutils literal notranslate"><span class="pre">MotorDriver.set_speed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.move_forward_accel"><code class="docutils literal notranslate"><span class="pre">MotorDriver.move_forward_accel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.move_forward"><code class="docutils literal notranslate"><span class="pre">MotorDriver.move_forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.rotate"><code class="docutils literal notranslate"><span class="pre">MotorDriver.rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.rotate_non_blocking"><code class="docutils literal notranslate"><span class="pre">MotorDriver.rotate_non_blocking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#motor_driver.MotorDriver.reset_odometry_blocking"><code class="docutils literal notranslate"><span class="pre">MotorDriver.reset_odometry_blocking()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hsv_filter.html">hsv_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.h_thresh"><code class="docutils literal notranslate"><span class="pre">h_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.s_thresh"><code class="docutils literal notranslate"><span class="pre">s_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.v_thresh"><code class="docutils literal notranslate"><span class="pre">v_thresh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.h_ref"><code class="docutils literal notranslate"><span class="pre">h_ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter"><code class="docutils literal notranslate"><span class="pre">HSVFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.s_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.v_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.h_ref"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.h_thresh"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id0"><code class="docutils literal notranslate"><span class="pre">HSVFilter.s_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id1"><code class="docutils literal notranslate"><span class="pre">HSVFilter.v_thresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#id2"><code class="docutils literal notranslate"><span class="pre">HSVFilter.h_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hsv_filter.html#hsv_filter.HSVFilter.__init__"><code class="docutils literal notranslate"><span class="pre">HSVFilter.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="path_info.html">path_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="path_info.html#path_info.PathInfo"><code class="docutils literal notranslate"><span class="pre">PathInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.pin_vectors"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.circle_radius"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.ball_pins_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.path_arc_angle"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.on_left"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.from_one_picture"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.aligning_phase"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.score_back_up_done"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.move_closer"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id0"><code class="docutils literal notranslate"><span class="pre">PathInfo.pin_vectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id1"><code class="docutils literal notranslate"><span class="pre">PathInfo.circle_radius</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id2"><code class="docutils literal notranslate"><span class="pre">PathInfo.ball_pins_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id3"><code class="docutils literal notranslate"><span class="pre">PathInfo.path_arc_angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id4"><code class="docutils literal notranslate"><span class="pre">PathInfo.on_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id5"><code class="docutils literal notranslate"><span class="pre">PathInfo.from_one_picture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id6"><code class="docutils literal notranslate"><span class="pre">PathInfo.aligning_phase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id7"><code class="docutils literal notranslate"><span class="pre">PathInfo.score_back_up_done</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#id8"><code class="docutils literal notranslate"><span class="pre">PathInfo.move_closer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="path_info.html#path_info.PathInfo.__init__"><code class="docutils literal notranslate"><span class="pre">PathInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor"><code class="docutils literal notranslate"><span class="pre">ImageProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.__init__"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.add_color_filter"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.add_color_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.filter_color"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.filter_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.segment_scene"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.segment_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.retrieve_image"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.retrieve_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_info.html">scene_info</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo"><code class="docutils literal notranslate"><span class="pre">SceneInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.has_ball"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.ball_position"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.pin_count"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.pin_positions"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id0"><code class="docutils literal notranslate"><span class="pre">SceneInfo.has_ball</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id1"><code class="docutils literal notranslate"><span class="pre">SceneInfo.ball_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id2"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#id3"><code class="docutils literal notranslate"><span class="pre">SceneInfo.pin_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_info.html#scene_info.SceneInfo.__init__"><code class="docutils literal notranslate"><span class="pre">SceneInfo.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="search_engine.html">search_engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine"><code class="docutils literal notranslate"><span class="pre">SearchEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine.__init__"><code class="docutils literal notranslate"><span class="pre">SearchEngine.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="search_engine.html#search_engine.SearchEngine.determine_state"><code class="docutils literal notranslate"><span class="pre">SearchEngine.determine_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visualizer.html">visualizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visualizer.html#visualizer.Visualizer"><code class="docutils literal notranslate"><span class="pre">Visualizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="visualizer.html#visualizer.Visualizer.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="visualizer.html#visualizer.Visualizer.refresh_image"><code class="docutils literal notranslate"><span class="pre">Visualizer.refresh_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LAR_Messi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../modules.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">motor_driver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/motor_driver.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-motor_driver">
+<span id="motor-driver"></span><h1>motor_driver<a class="headerlink" href="#module-motor_driver" title="Link to this heading"></a></h1>
+<p>Motor Control System for TurtleBot Soccer Player</p>
+<p>This module provides precise motor control for the TurtleBot, implementing:
+- Velocity-controlled movement
+- Smooth acceleration profiles
+- Blocking and non-blocking rotation commands
+- Odometry-based movement control</p>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#motor_driver.MotorDriver" title="motor_driver.MotorDriver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MotorDriver</span></code></a>(turtle, rotation_speed, ...)</p></td>
+<td><p>Provides high-level motor control for TurtleBot soccer operations.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motor_driver.</span></span><span class="sig-name descname"><span class="pre">MotorDriver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turtle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">robolab_turtlebot.Turtlebot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provides high-level motor control for TurtleBot soccer operations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turtle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">robolab_turtlebot.Turtlebot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MotorDriver with TurtleBot instance and default speeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>turtle</strong> – TurtleBot robot instance</p></li>
+<li><p><strong>rotation_speed</strong> – Default angular velocity (rad/s)</p></li>
+<li><p><strong>forward_speed</strong> – Default linear velocity (m/s)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.set_speed">
+<span class="sig-name descname"><span class="pre">set_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.set_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.set_speed" title="Link to this definition"></a></dt>
+<dd><p>Update motor speed parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.move_forward_accel">
+<span class="sig-name descname"><span class="pre">move_forward_accel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">travel_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.move_forward_accel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.move_forward_accel" title="Link to this definition"></a></dt>
+<dd><p>Move forward with smooth acceleration profile.</p>
+<p>Implements gradual acceleration to target speed, maintains speed for
+specified duration, and includes automatic shutdown safety checks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.move_forward">
+<span class="sig-name descname"><span class="pre">move_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">move_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.move_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.move_forward" title="Link to this definition"></a></dt>
+<dd><p>Move forward at constant speed for specified duration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.rotate" title="Link to this definition"></a></dt>
+<dd><p>Rotate by specified angle with blocking execution.</p>
+<p>Uses odometry to achieve precise rotation and automatically stops when
+target is reached.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.rotate_non_blocking">
+<span class="sig-name descname"><span class="pre">rotate_non_blocking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.rotate_non_blocking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.rotate_non_blocking" title="Link to this definition"></a></dt>
+<dd><p>Continuous rotation command (non-blocking).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="motor_driver.MotorDriver.reset_odometry_blocking">
+<span class="sig-name descname"><span class="pre">reset_odometry_blocking</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/motor_driver.html#MotorDriver.reset_odometry_blocking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motor_driver.MotorDriver.reset_odometry_blocking" title="Link to this definition"></a></dt>
+<dd><p>Reset odometry and verify successful reset.</p>
+<p>Blocks until odometry values are confirmed near zero by timeout safety.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../modules.html" class="btn btn-neutral float-left" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hsv_filter.html" class="btn btn-neutral float-right" title="hsv_filter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Adam Hendrych, David Horňáček, Adam Hejtmánek.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
