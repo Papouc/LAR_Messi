@@ -20,7 +20,8 @@ __all__ = [
     'path_info',
     'scene_info',
     'search_engine',
-    'visualizer'
+    'visualizer',
+    'main'
 ]
 
 __version__ = '1.0.0'

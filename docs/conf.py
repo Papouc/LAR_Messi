@@ -8,6 +8,7 @@ import sys
 sys.path.insert(0, os.path.abspath('../src'))  # Your code
 sys.path.insert(0, os.path.abspath('../../robolab_turtlebot/src/robolab_turtlebot'))  # Path to Turtle repo
 
+autodoc_mock_imports = ['robolab_turtlebot']
 # -- Project information -----------------------------------------------------
 project = 'LAR_Messi'
 copyright = '2025, Adam Hendrych, David Horňáček, Adam Hejtmánek'

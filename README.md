@@ -34,7 +34,6 @@ LAR_Messi/
 
 ## 🧩 Module Documentation
 
-
 💻 Installation
 
 # Clone repository
@@ -70,8 +69,6 @@ flowchart TD
     Improvements: Error handling suggestions
 
 ✅ Code Quality
-bash
-Copy
 
 # Run PEP8 check
 flake8 src/
@@ -81,24 +78,9 @@ flake8 src/
 
 👥 Team
 Member  
-[Adam Hendrych]
-[David Horňáček]
-[Adam Hejtmánek]
+Adam Hendrych,
+David Horňáček,
+Adam Hejtmánek
 
 📅 Last Updated: {current_date}
 🏷️ Version: {git_version}
-Copy
-
-
-This README:
-1. Combines all module documentation
-2. Follows CVUT technical report requirements
-3. Includes visual diagrams
-4. Provides installation/usage instructions
-5. Maintains professional formatting
-6. Has placeholders for team info
-
-To keep it updated:
-```bash
-# Regenerate whenever code changes
-python docs/generate_readme.py
