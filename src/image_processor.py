@@ -3,24 +3,28 @@ Image Processing Pipeline for TurtleBot Soccer Player
 
 This module handles all image processing tasks for the robotic soccer system,
 including:
+
 - Color filtering in HSV space
 - Contour detection and analysis
 - Object classification (ball vs goal posts)
 - Scene segmentation and feature extraction
 
 The ImageProcessor class provides methods to:
+
 1. Apply multiple HSV color filters to isolate objects of interest
 2. Convert filtered images to binary representations
 3. Detect and analyze contours to classify objects
 4. Extract positional information about detected objects
 
 Key Features:
+
 - Uses HSV color space for robust color filtering
 - Employs contour analysis to distinguish between ball and goal posts
 - Provides geometric shape analysis (circle vs rectangle ratios)
 - Maintains internal state of processed images for visualization
 
 Constants:
+
 - BW_THRESH: Threshold for binary image conversion
 - BW_MAXVALUE: Maximum value for binary thresholding
 - MIN_VALID_AREA_BALL: Minimum contour area to consider as valid ball

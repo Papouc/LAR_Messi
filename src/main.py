@@ -2,27 +2,32 @@
 Autonomous TurtleBot Soccer Player System
 
 This program implements a complete robotic soccer player capable of:
+
 0. Starting by pressing a button
 1. Visual perception using RGB-D camera
 2. Object detection and tracking
 3. Path planning and navigation
 4. Autonomous goal-scoring behavior
 
-Core Capabilities:
+**Core Capabilities:**
+
 - Real-time ball detection using HSV color filtering (yellow)
-- Goal(gate) post(pin) detection (two blue pins)
+- Goal (gate) post (pin) detection (two blue pins)
 - Depth perception for distance measurement
 - State machine-based decision making
 - Precise motor control for navigation
 - Visual feedback system
 
-System Architecture:
+**System Architecture:**
+
 1. Perception Layer:
+
    - Realsense D435 camera (RGB + Depth)
    - HSV color filtering (ball and goal posts)
    - Contour analysis for object classification
 
 2. Processing Layer:
+
    - Image processing pipeline
    - Scene analysis and state determination
    - Path planning mathematics
@@ -32,9 +37,20 @@ System Architecture:
    - Motor control
    - Odometry-based navigation
 
-State Machine States:
-IDLE → GENERAL_SEARCH → CENTER_BALL → GET_RADIUS → COMPUTE_PATH →
-CHECK_DISTANCE → EXEC_PATH → PREP_TO_SCORE → BACK_OFF → ALIGN → SCORE → EM_STOP
+**State Machine States:**
+
+    - **IDLE** → GENERAL_SEARCH
+    - **GENERAL_SEARCH** → CENTER_BALL
+    - **CENTER_BALL** → GET_RADIUS
+    - **GET_RADIUS** → COMPUTE_PATH
+    - **COMPUTE_PATH** → CHECK_DISTANCE
+    - **CHECK_DISTANCE** → EXEC_PATH
+    - **EXEC_PATH** → PREP_TO_SCORE
+    - **PREP_TO_SCORE** → ALIGN
+    - **ALIGN** → SCORE
+    - **SCORE** → BACK_OFF
+    - **BACK_OFF** → IDLE
+    - **EM_STOP** (emergency halt, no transition)
 """
 
 from robolab_turtlebot import Turtlebot, Rate

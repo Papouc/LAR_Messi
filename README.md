@@ -1,4 +1,4 @@
-# LAR_Messi - Autonomous TurtleBot Soccer Player  
+# ⚽ LAR_Messi - Autonomous TurtleBot Soccer Player
 *Precision Robotic Football System*
 
 ![Robotic Soccer Demo](./docs/media/robot_score.gif)  
@@ -13,74 +13,66 @@ An autonomous robotic platform that enables TurtleBot to play soccer through:
 - **Decision Making** - 12-state finite state machine
 
 **Technology Stack**:  
-![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python) ![OpenCV](https://img.shields.io/badge/OpenCV-4.5+-green?logo=opencv) ![ROS](https://img.shields.io/badge/ROS-Noetic-purple?logo=ros) ![RealSense](https://img.shields.io/badge/RealSense-D435-red?logo=intel)
+![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python&logoColor=white)   
+![OpenCV](https://img.shields.io/badge/OpenCV-4.5+-green?logo=opencv&logoColor=white)        
+![ROS](https://img.shields.io/badge/ROS-Noetic-purple?logo=ros&logoColor=white)     
+![RealSense](https://img.shields.io/badge/Intel_RealSense-D435-red?logo=intel&logoColor=white)
 
 ## 🗂️ Project Structure
-LAR_Messi/
-
+LAR_Messi/    
 ├── docs/    
-│ ├── media/ # Demo videos and images  
-│ └── README.md # This documentation
-├── src/    
-│ ├── main.py # Primary control system     
-│ ├── motor_driver.py # Robot movement control   
-│ ├── image_processor.py # Vision pipeline     
-│ ├── scene_info.py # Detection data structure     
-│ ├── search_engine.py # Scene analysis     
-│ ├── visualizer.py # Debug visualization    
-│ ├── hsv_filter.py # Color detection    
-│ └── path_info.py # Navigation data   
+│ ├── _build/ # view auto-generated html documentation. "index.html"  
+│ ├── media/ # Demo video      
+│ └── conf.py # Documentation configuration        
+├── src/       
+│ ├── main.py # Primary control system      
+│ ├── motor_driver.py # Robot movement control       
+│ ├── image_processor.py # Vision pipeline      
+│ ├── scene_info.py # Detection data structure        
+│ ├── search_engine.py # Scene analysis       
+│ ├── visualizer.py # Debug visualization        
+│ ├── hsv_filter.py # Color detection      
+│ └── path_info.py # Navigation data       
+└── requirements.txt # Dependency list         
 
 
-## 🧩 Module Documentation
+## 📚 Documentation
+![Sphinx](https://./docs/_build/html/index.html)
+[Sphinx auto-generated documentation](./docs/_build/html/index.html)
+## 💻 Installation
 
-💻 Installation
+### Clone repository:
+```bash
+  git clone https://github.com/Papouc/LAR_Messi
+  cd LAR_Messi
+```
 
-# Clone repository
-git clone https://github.com/Papouc/LAR_Messi
-cd LAR_Messi
-
-# Install dependencies
+### Install dependencies
 pip install -r requirements.txt
 
-# Run program
+### Run program
 python src/main.py
 
-📊 System Architecture
-mermaid
+## 📊 System Architecture
 
-flowchart TD
-    A[Camera Input] --> B[Ball Detection]
-    A --> C[Goal Detection]
-    B --> D[Path Planning]
-    C --> D
-    D --> E[Motor Control]
+------Dodelava David
 
-📝 Technical Report Requirements
+## ✅ Code Quality
 
-    Problem Analysis: Computer vision challenges
+### Run PEP8 check
+```bash
+  flake8 src/
+```
+### Expected output:
+```bash
+  0 errors found
+```
 
-    Solution Design: HSV filtering + path planning
 
-    Implementation: Python/OpenCV pipeline
-
-    Results: Success rate metrics
-
-    Improvements: Error handling suggestions
-
-✅ Code Quality
-
-# Run PEP8 check
-flake8 src/
-
-# Expected output:
-# 0 violations (with proper formatting)
-
-👥 Team
-Member  
+## 👥 Team Members  
 Adam Hendrych,
 David Horňáček,
 Adam Hejtmánek
 
-📅 Last Updated: {current_date}
-🏷️ Version: {git_version}
+📅 Last Updated: {05.04.2025}
+🏷️ Version: {1.0.0}

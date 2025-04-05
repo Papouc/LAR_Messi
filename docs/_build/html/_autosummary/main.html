@@ -173,41 +173,61 @@
   <section id="module-main">
 <span id="main"></span><h1>main<a class="headerlink" href="#module-main" title="Link to this heading"></a></h1>
 <p>Autonomous TurtleBot Soccer Player System</p>
-<p>This program implements a complete robotic soccer player capable of:
-0. Starting by pressing a button
-1. Visual perception using RGB-D camera
-2. Object detection and tracking
-3. Path planning and navigation
-4. Autonomous goal-scoring behavior</p>
-<p>Core Capabilities:
-- Real-time ball detection using HSV color filtering (yellow)
-- Goal(gate) post(pin) detection (two blue pins)
-- Depth perception for distance measurement
-- State machine-based decision making
-- Precise motor control for navigation
-- Visual feedback system</p>
-<p>System Architecture:
-1. Perception Layer:</p>
-<blockquote>
-<div><ul class="simple">
+<p>This program implements a complete robotic soccer player capable of:</p>
+<ol class="arabic simple" start="0">
+<li><p>Starting by pressing a button</p></li>
+<li><p>Visual perception using RGB-D camera</p></li>
+<li><p>Object detection and tracking</p></li>
+<li><p>Path planning and navigation</p></li>
+<li><p>Autonomous goal-scoring behavior</p></li>
+</ol>
+<p><strong>Core Capabilities:</strong></p>
+<ul class="simple">
+<li><p>Real-time ball detection using HSV color filtering (yellow)</p></li>
+<li><p>Goal (gate) post (pin) detection (two blue pins)</p></li>
+<li><p>Depth perception for distance measurement</p></li>
+<li><p>State machine-based decision making</p></li>
+<li><p>Precise motor control for navigation</p></li>
+<li><p>Visual feedback system</p></li>
+</ul>
+<p><strong>System Architecture:</strong></p>
+<ol class="arabic simple">
+<li><p>Perception Layer:</p>
+<ul class="simple">
 <li><p>Realsense D435 camera (RGB + Depth)</p></li>
 <li><p>HSV color filtering (ball and goal posts)</p></li>
 <li><p>Contour analysis for object classification</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>Processing Layer:
-- Image processing pipeline
-- Scene analysis and state determination
-- Path planning mathematics</p></li>
+</li>
+<li><p>Processing Layer:</p>
+<ul class="simple">
+<li><p>Image processing pipeline</p></li>
+<li><p>Scene analysis and state determination</p></li>
+<li><p>Path planning mathematics</p></li>
+</ul>
+</li>
 <li><p>Control Layer:
 - Finite State Machine (12 states)
 - Motor control
 - Odometry-based navigation</p></li>
 </ol>
-<p>State Machine States:
-IDLE → GENERAL_SEARCH → CENTER_BALL → GET_RADIUS → COMPUTE_PATH →
-CHECK_DISTANCE → EXEC_PATH → PREP_TO_SCORE → BACK_OFF → ALIGN → SCORE → EM_STOP</p>
+<p><strong>State Machine States:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>IDLE</strong> → GENERAL_SEARCH</p></li>
+<li><p><strong>GENERAL_SEARCH</strong> → CENTER_BALL</p></li>
+<li><p><strong>CENTER_BALL</strong> → GET_RADIUS</p></li>
+<li><p><strong>GET_RADIUS</strong> → COMPUTE_PATH</p></li>
+<li><p><strong>COMPUTE_PATH</strong> → CHECK_DISTANCE</p></li>
+<li><p><strong>CHECK_DISTANCE</strong> → EXEC_PATH</p></li>
+<li><p><strong>EXEC_PATH</strong> → PREP_TO_SCORE</p></li>
+<li><p><strong>PREP_TO_SCORE</strong> → ALIGN</p></li>
+<li><p><strong>ALIGN</strong> → SCORE</p></li>
+<li><p><strong>SCORE</strong> → BACK_OFF</p></li>
+<li><p><strong>BACK_OFF</strong> → IDLE</p></li>
+<li><p><strong>EM_STOP</strong> (emergency halt, no transition)</p></li>
+</ul>
+</div></blockquote>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>

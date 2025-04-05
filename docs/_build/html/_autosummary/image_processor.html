@@ -174,28 +174,36 @@
 <span id="image-processor"></span><h1>image_processor<a class="headerlink" href="#module-image_processor" title="Link to this heading"></a></h1>
 <p>Image Processing Pipeline for TurtleBot Soccer Player</p>
 <p>This module handles all image processing tasks for the robotic soccer system,
-including:
-- Color filtering in HSV space
-- Contour detection and analysis
-- Object classification (ball vs goal posts)
-- Scene segmentation and feature extraction</p>
-<p>The ImageProcessor class provides methods to:
-1. Apply multiple HSV color filters to isolate objects of interest
-2. Convert filtered images to binary representations
-3. Detect and analyze contours to classify objects
-4. Extract positional information about detected objects</p>
-<p>Key Features:
-- Uses HSV color space for robust color filtering
-- Employs contour analysis to distinguish between ball and goal posts
-- Provides geometric shape analysis (circle vs rectangle ratios)
-- Maintains internal state of processed images for visualization</p>
-<p>Constants:
-- BW_THRESH: Threshold for binary image conversion
-- BW_MAXVALUE: Maximum value for binary thresholding
-- MIN_VALID_AREA_BALL: Minimum contour area to consider as valid ball
-- MIN_VALID_AREA_PIN: Minimum contour area to consider as valid goal post
-- CIRCLE_TO_RECT: Circle-to-rectangle area ratio threshold for ball detection
-- CIRCLE_TO_HULL: Circle-to-hull area ratio threshold for ball detection</p>
+including:</p>
+<ul class="simple">
+<li><p>Color filtering in HSV space</p></li>
+<li><p>Contour detection and analysis</p></li>
+<li><p>Object classification (ball vs goal posts)</p></li>
+<li><p>Scene segmentation and feature extraction</p></li>
+</ul>
+<p>The ImageProcessor class provides methods to:</p>
+<ol class="arabic simple">
+<li><p>Apply multiple HSV color filters to isolate objects of interest</p></li>
+<li><p>Convert filtered images to binary representations</p></li>
+<li><p>Detect and analyze contours to classify objects</p></li>
+<li><p>Extract positional information about detected objects</p></li>
+</ol>
+<p>Key Features:</p>
+<ul class="simple">
+<li><p>Uses HSV color space for robust color filtering</p></li>
+<li><p>Employs contour analysis to distinguish between ball and goal posts</p></li>
+<li><p>Provides geometric shape analysis (circle vs rectangle ratios)</p></li>
+<li><p>Maintains internal state of processed images for visualization</p></li>
+</ul>
+<p>Constants:</p>
+<ul class="simple">
+<li><p>BW_THRESH: Threshold for binary image conversion</p></li>
+<li><p>BW_MAXVALUE: Maximum value for binary thresholding</p></li>
+<li><p>MIN_VALID_AREA_BALL: Minimum contour area to consider as valid ball</p></li>
+<li><p>MIN_VALID_AREA_PIN: Minimum contour area to consider as valid goal post</p></li>
+<li><p>CIRCLE_TO_RECT: Circle-to-rectangle area ratio threshold for ball detection</p></li>
+<li><p>CIRCLE_TO_HULL: Circle-to-hull area ratio threshold for ball detection</p></li>
+</ul>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>

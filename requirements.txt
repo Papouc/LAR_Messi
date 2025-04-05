@@ -1,0 +1,20 @@
+# Core dependencies
+opencv-python>=4.5.4.60         # Computer vision operations
+numpy>=1.21.5                   # Numerical computations
+pyrealsense2>=2.51.1            # Intel RealSense camera interface
+rospkg>=1.5.0                   # ROS package management
+sensor-msgs>=1.13.1             # ROS sensor message definitions
+cv-bridge>=1.16.2               # OpenCV-ROS bridge
+python-dateutil>=2.8.2          # Date/time handling
+sympy>=1.10.1                   # Symbolic mathematics for path planning
+
+# Documentation
+sphinx>=5.0.2                   # Documentation generator
+sphinx-rtd-theme>=1.0.0         # ReadTheDocs theme
+sphinxcontrib-mermaid>=0.7.1    # Mermaid diagram support
+
+# Development tools
+flake8>=4.0.1                   # Code linting
+
+# ROS dependencies (if using pip installations)
+catkin-pkg>=0.5.2               # ROS build system

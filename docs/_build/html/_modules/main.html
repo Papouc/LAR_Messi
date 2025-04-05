@@ -171,27 +171,32 @@
 <span class="sd">Autonomous TurtleBot Soccer Player System</span>
 
 <span class="sd">This program implements a complete robotic soccer player capable of:</span>
+
 <span class="sd">0. Starting by pressing a button</span>
 <span class="sd">1. Visual perception using RGB-D camera</span>
 <span class="sd">2. Object detection and tracking</span>
 <span class="sd">3. Path planning and navigation</span>
 <span class="sd">4. Autonomous goal-scoring behavior</span>
 
-<span class="sd">Core Capabilities:</span>
+<span class="sd">**Core Capabilities:**</span>
+
 <span class="sd">- Real-time ball detection using HSV color filtering (yellow)</span>
-<span class="sd">- Goal(gate) post(pin) detection (two blue pins)</span>
+<span class="sd">- Goal (gate) post (pin) detection (two blue pins)</span>
 <span class="sd">- Depth perception for distance measurement</span>
 <span class="sd">- State machine-based decision making</span>
 <span class="sd">- Precise motor control for navigation</span>
 <span class="sd">- Visual feedback system</span>
 
-<span class="sd">System Architecture:</span>
+<span class="sd">**System Architecture:**</span>
+
 <span class="sd">1. Perception Layer:</span>
+
 <span class="sd">   - Realsense D435 camera (RGB + Depth)</span>
 <span class="sd">   - HSV color filtering (ball and goal posts)</span>
 <span class="sd">   - Contour analysis for object classification</span>
 
 <span class="sd">2. Processing Layer:</span>
+
 <span class="sd">   - Image processing pipeline</span>
 <span class="sd">   - Scene analysis and state determination</span>
 <span class="sd">   - Path planning mathematics</span>
@@ -201,9 +206,20 @@
 <span class="sd">   - Motor control</span>
 <span class="sd">   - Odometry-based navigation</span>
 
-<span class="sd">State Machine States:</span>
-<span class="sd">IDLE → GENERAL_SEARCH → CENTER_BALL → GET_RADIUS → COMPUTE_PATH →</span>
-<span class="sd">CHECK_DISTANCE → EXEC_PATH → PREP_TO_SCORE → BACK_OFF → ALIGN → SCORE → EM_STOP</span>
+<span class="sd">**State Machine States:**</span>
+
+<span class="sd">    - **IDLE** → GENERAL_SEARCH</span>
+<span class="sd">    - **GENERAL_SEARCH** → CENTER_BALL</span>
+<span class="sd">    - **CENTER_BALL** → GET_RADIUS</span>
+<span class="sd">    - **GET_RADIUS** → COMPUTE_PATH</span>
+<span class="sd">    - **COMPUTE_PATH** → CHECK_DISTANCE</span>
+<span class="sd">    - **CHECK_DISTANCE** → EXEC_PATH</span>
+<span class="sd">    - **EXEC_PATH** → PREP_TO_SCORE</span>
+<span class="sd">    - **PREP_TO_SCORE** → ALIGN</span>
+<span class="sd">    - **ALIGN** → SCORE</span>
+<span class="sd">    - **SCORE** → BACK_OFF</span>
+<span class="sd">    - **BACK_OFF** → IDLE</span>
+<span class="sd">    - **EM_STOP** (emergency halt, no transition)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">robolab_turtlebot</span> <span class="kn">import</span> <span class="n">Turtlebot</span><span class="p">,</span> <span class="n">Rate</span>

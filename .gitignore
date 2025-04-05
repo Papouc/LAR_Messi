@@ -1,4 +1,4 @@
-# IDE specific
+# vs code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -9,3 +9,6 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+# pycharm
+.idea

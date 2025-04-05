@@ -172,24 +172,28 @@
 
 <span class="sd">This module handles all image processing tasks for the robotic soccer system,</span>
 <span class="sd">including:</span>
+
 <span class="sd">- Color filtering in HSV space</span>
 <span class="sd">- Contour detection and analysis</span>
 <span class="sd">- Object classification (ball vs goal posts)</span>
 <span class="sd">- Scene segmentation and feature extraction</span>
 
 <span class="sd">The ImageProcessor class provides methods to:</span>
+
 <span class="sd">1. Apply multiple HSV color filters to isolate objects of interest</span>
 <span class="sd">2. Convert filtered images to binary representations</span>
 <span class="sd">3. Detect and analyze contours to classify objects</span>
 <span class="sd">4. Extract positional information about detected objects</span>
 
 <span class="sd">Key Features:</span>
+
 <span class="sd">- Uses HSV color space for robust color filtering</span>
 <span class="sd">- Employs contour analysis to distinguish between ball and goal posts</span>
 <span class="sd">- Provides geometric shape analysis (circle vs rectangle ratios)</span>
 <span class="sd">- Maintains internal state of processed images for visualization</span>
 
 <span class="sd">Constants:</span>
+
 <span class="sd">- BW_THRESH: Threshold for binary image conversion</span>
 <span class="sd">- BW_MAXVALUE: Maximum value for binary thresholding</span>
 <span class="sd">- MIN_VALID_AREA_BALL: Minimum contour area to consider as valid ball</span>
