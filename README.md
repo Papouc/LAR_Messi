@@ -37,8 +37,7 @@ LAR_Messi/
 
 
 ## 📚 Documentation
-![Sphinx](https://./docs/_build/html/index.html)
-[Sphinx auto-generated documentation](./docs/_build/html/index.html)
+[Sphinx auto-generated documentation](https://papouc.github.io/LAR_Messi/)
 ## 💻 Installation
 
 ### Clone repository:
