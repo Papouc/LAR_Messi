@@ -1,0 +1,17 @@
+# vs code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# system Files
+.DS_Store
+Thumbs.db
+
+# pycharm
+.idea
+
+# mypy temporary files
+.mypy_cache
