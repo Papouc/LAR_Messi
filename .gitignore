@@ -12,3 +12,6 @@ Thumbs.db
 
 # pycharm
 .idea
+
+# mypy temporary files
+.mypy_cache

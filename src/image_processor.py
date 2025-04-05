@@ -41,7 +41,7 @@ import math
 from scene_info import SceneInfo
 from hsv_filter import HSVFilter
 
-from typing import Tuple, Sequence
+from typing import Tuple, Sequence, Any
 
 # Type alias for image arrays
 Image = np.ndarray
@@ -137,15 +137,13 @@ class ImageProcessor:
         info: SceneInfo = SceneInfo()
 
         # Convert to grayscale and threshold
-        bw_image: Image = copy.deepcopy(self._processed_img)
+        bw_image: Any = copy.deepcopy(self._processed_img)
         bw_image = cv2.cvtColor(bw_image, cv2.COLOR_BGR2GRAY)
-        _, bw_image = cv2.threshold(
-            bw_image, BW_THRESH, BW_MAXVALUE, cv2.THRESH_BINARY)
+        _, bw_image = cv2.threshold(bw_image, BW_THRESH, BW_MAXVALUE, cv2.THRESH_BINARY)
 
         # Find contours in binary image
         contours: np.ndarray
-        contours, _ = cv2.findContours(
-            bw_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        contours, _ = cv2.findContours(bw_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
         # Analyze each contour
         for contour in contours:
@@ -154,25 +152,28 @@ class ImageProcessor:
 
             # Calculate contour properties
             hull: np.ndarray = cv2.convexHull(contour)
-            min_c_center: Tuple[float, float]
+            min_c_center: Sequence[float]
             min_c_radius: float
             min_c_center, min_c_radius = cv2.minEnclosingCircle(contour)
-            min_rect: Tuple[Sequence[float], Sequence[float], float] = \
-                cv2.minAreaRect(contour)
+            min_rect: Tuple[Sequence[float], Sequence[float], float] = cv2.minAreaRect(contour)
             min_c_area: float = math.pi * (min_c_radius ** 2)
             min_rect_area: float = min_rect[1][0] * min_rect[1][1]
+
+            x: int
+            y: int
+            w: int
+            h: int
+
             x, y, w, h = cv2.boundingRect(contour)
 
             # Classify as ball based on shape ratios
-            if (min_c_area / min_rect_area < CIRCLE_TO_RECT and
-                    min_c_area / cv2.contourArea(hull) < CIRCLE_TO_HULL):
+            if min_c_area / min_rect_area < CIRCLE_TO_RECT and min_c_area / cv2.contourArea(hull) < CIRCLE_TO_HULL:
 
                 if cv2.contourArea(contour) <= MIN_VALID_AREA_BALL:
                     continue
 
                 info.has_ball = True
-                info.ball_position = (int(min_c_center[0]),
-                                      int(min_c_center[1]))
+                info.ball_position = (int(min_c_center[0]), int(min_c_center[1]))
 
                 # Classify as goal post based on aspect ratio
             elif h / w > 1.9:
@@ -187,7 +188,7 @@ class ImageProcessor:
             if not draw:
                 continue
 
-            box: np.ndarray = cv2.boxPoints(min_rect)
+            box: Any = cv2.boxPoints(min_rect)
             box = np.intp(box)
             cv2.drawContours(self._processed_img, [box], -1, (255, 0, 0), 2)
             cv2.drawContours(self._processed_img, [hull], -1, (0, 0, 255), 2)

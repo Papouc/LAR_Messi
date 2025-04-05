@@ -18,8 +18,7 @@ ACCEL_PHASES_CNT: int = 10
 class MotorDriver:
     """Provides high-level motor control for TurtleBot soccer operations."""
 
-    def __init__(self, turtle: Turtlebot, rotation_speed: float,
-                 forward_speed: float) -> None:
+    def __init__(self, turtle: Turtlebot, rotation_speed: float, forward_speed: float) -> None:
         """
         Initialize the MotorDriver with TurtleBot instance and default speeds.
 
@@ -52,8 +51,7 @@ class MotorDriver:
         stage_counter: int = 0  # Acceleration phase counter
 
         # Smooth acceleration phase
-        while (stage_counter < ACCEL_PHASES_CNT and
-               (not self._turtle.is_shutting_down())):
+        while stage_counter < ACCEL_PHASES_CNT and (not self._turtle.is_shutting_down()):
             self._turtle.cmd_velocity(linear=speed_fw, angular=speed_ag)
             self._rate.sleep()
 
@@ -68,8 +66,7 @@ class MotorDriver:
         # Constant velocity phase
         start_time = time.time()
         while not self._turtle.is_shutting_down():
-            self._turtle.cmd_velocity(linear=self._forward_speed,
-                                      angular=self._rotation_speed)
+            self._turtle.cmd_velocity(linear=self._forward_speed, angular=self._rotation_speed)
             self._rate.sleep()
 
             if time.time() - start_time >= travel_time + accel_time:
@@ -79,13 +76,11 @@ class MotorDriver:
         """Move forward at constant speed for specified duration."""
         start_time: float = time.time()
 
-        while ((time.time() - start_time < move_time) and
-               (not self._turtle.is_shutting_down())):
-            self._turtle.cmd_velocity(linear=self._forward_speed,
-                                      angular=self._rotation_speed)
+        while (time.time() - start_time < move_time) and (not self._turtle.is_shutting_down()):
+            self._turtle.cmd_velocity(linear=self._forward_speed, angular=self._rotation_speed)
             self._rate.sleep()
 
-    def rotate(self, degrees: int, left: bool = True) -> None:
+    def rotate(self, degrees: float, left: bool = True) -> None:
         """
         Rotate by specified angle with blocking execution.
 
@@ -95,8 +90,7 @@ class MotorDriver:
         self.reset_odometry_blocking()
         self._set_direction(left)
 
-        while (abs(self._turtle.get_odometry()[2]) < abs(degrees) and
-               (not self._turtle.is_shutting_down())):
+        while abs(self._turtle.get_odometry()[2]) < abs(degrees) and (not self._turtle.is_shutting_down()):
             self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed)
             self._rate.sleep()
 
@@ -105,8 +99,7 @@ class MotorDriver:
 
     def _set_direction(self, left: bool) -> None:
         """Set rotation direction (internal helper method)."""
-        self._rotation_speed = (abs(self._rotation_speed) if left
-                                else -abs(self._rotation_speed))
+        self._rotation_speed = (abs(self._rotation_speed) if left else -abs(self._rotation_speed))
 
     def rotate_non_blocking(self, enabled: bool, left: bool) -> None:
         """Continuous rotation command (non-blocking)."""
@@ -116,8 +109,7 @@ class MotorDriver:
 
         self._set_direction(left)
         # Reduced speed for fine control
-        self._turtle.cmd_velocity(linear=0.0,
-                                  angular=self._rotation_speed / 1.75)
+        self._turtle.cmd_velocity(linear=0.0, angular=self._rotation_speed / 1.75)
 
     def reset_odometry_blocking(self) -> None:
         """

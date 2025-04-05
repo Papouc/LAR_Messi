@@ -52,7 +52,6 @@ This program implements a complete robotic soccer player capable of:
     - **BACK_OFF** → IDLE
     - **EM_STOP** (emergency halt, no transition)
 """
-
 from robolab_turtlebot import Turtlebot, Rate
 from motor_driver import MotorDriver
 from scene_info import SceneInfo
@@ -62,21 +61,20 @@ from hsv_filter import HSVFilter
 from image_processor import ImageProcessor, Image
 from path_info import PathInfo
 from sympy import symbols, Eq, solve
-from typing import Tuple
+from typing import Tuple, Any
 
 import numpy as np
 import math
 
-
 # System Constants
-LOOP_RATE: int = 10                  # Main control loop frequency (Hz)
+LOOP_RATE: int = 10  # Main control loop frequency (Hz)
 TURN_ANGLE: float = (1 / 18) * math.pi  # Default rotation increment (radians)
-IMAGE_CENTER_X: int = 640 // 2       # Horizontal center of camera frame
-X_THRESHOLD: int = 10                # Ball centering tolerance (pixels)
-DEAD_AREA_ANGLE: float = 0.3         # Minimum viable path arc angle (radians)
+IMAGE_CENTER_X: int = 640 // 2  # Horizontal center of camera frame
+X_THRESHOLD: int = 10  # Ball centering tolerance (pixels)
+DEAD_AREA_ANGLE: float = 0.3  # Minimum viable path arc angle (radians)
 
 # HSV Filter Parameters
-BALL_HSV = HSVFilter(30, 125, 65, 48)   # Yellow ball detection thresholds
+BALL_HSV = HSVFilter(30, 125, 65, 48)  # Yellow ball detection thresholds
 GOAL_HSV = HSVFilter(105, 160, 98, 196)  # Blue goal post detection thresholds
 
 
@@ -152,21 +150,16 @@ def main() -> None:
             depth_image: np.ndarray = turtle.get_point_cloud()
 
             if search_result == "BOTH_FOUND":
-                path_info.pin_vectors = get_pin_vectors(
-                    depth_image, k_matrix, image_results[-1])
+                path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
                 path_info.from_one_picture = True
                 path_info.ball_pins_angle = 0
                 path_info.on_left, _ = get_side(image_results)
 
-            elif (search_result == "PINS_FOUND" and
-                    len(path_info.pin_vectors) <= 0):
-                path_info.pin_vectors = get_pin_vectors(
-                    depth_image, k_matrix, image_results[-1])
+            elif search_result == "PINS_FOUND" and len(path_info.pin_vectors) <= 0:
+                path_info.pin_vectors = get_pin_vectors(depth_image, k_matrix, image_results[-1])
 
-            if state_machine_step(prev_search_results, motor_driver,
-                                  path_info):
-                if (search_result == "BALL_FOUND" or
-                        search_result == "BOTH_FOUND"):
+            if state_machine_step(prev_search_results, motor_driver, path_info):
+                if search_result == "BALL_FOUND" or search_result == "BOTH_FOUND":
                     robot_state = "CENTER_BALL"
                 else:
                     path_info = PathInfo()
@@ -187,7 +180,7 @@ def main() -> None:
 
         elif robot_state == "GET_RADIUS":
             if image_results[-1].has_ball:
-                depth_image: np.ndarray = turtle.get_point_cloud()
+                depth_image = turtle.get_point_cloud()
                 y_ball_pos: int = image_results[-1].ball_position[1]
                 x_ball_pos: int = image_results[-1].ball_position[0]
 
@@ -207,10 +200,8 @@ def main() -> None:
                 pins_index: int = prev_search_results.index("PINS_FOUND")
 
                 # check if full revolution between ball and pins
-                if ((abs(ball_index - pins_index) > 15 and
-                     ball_index > pins_index) or
-                    (pins_index > ball_index and
-                     abs(ball_index - pins_index) < 10)):
+                if ((abs(ball_index - pins_index) > 15 and ball_index > pins_index) or
+                        (pins_index > ball_index and abs(ball_index - pins_index) < 10)):
                     path_info.on_left = True
                 else:
                     path_info.on_left = False
@@ -229,18 +220,17 @@ def main() -> None:
                 [-math.sin(beta), 0, math.cos(beta)]
             ])
 
-            r_transf: np.ndarray = transf_matrix @ np.array(
-                [0, 0, path_info.circle_radius])
+            r_transf: np.ndarray = transf_matrix @ np.array([0, 0, path_info.circle_radius])
 
-            # TODO: typdef
+            x: Any
+            y: Any
             x, y = symbols('x y', real=True)
 
-            eq1 = Eq((x - r_transf[0]) ** 2 + (y - r_transf[2]) ** 2 -
-                     path_info.circle_radius ** 2, 0)
-            eq2 = Eq(q1[0] * x + q1[2] * y -
-                     (q1[0] * c1[0] + q1[2] * c1[2]), 0)
+            eq1: Any = Eq((x - r_transf[0]) ** 2 + (y - r_transf[2]) ** 2 - path_info.circle_radius ** 2, 0)
 
-            solutions : Tuple[float, float] = solve((eq1, eq2), (x, y))
+            eq2: Any = Eq(q1[0] * x + q1[2] * y - (q1[0] * c1[0] + q1[2] * c1[2]), 0)
+
+            solutions: Tuple[Tuple[float, float], Tuple[float, float]] = solve((eq1, eq2), (x, y))
 
             # no intersections found
             if len(solutions) != 2:
@@ -249,10 +239,8 @@ def main() -> None:
                 robot_state = "GENERAL_SEARCH"
                 continue
 
-            guess_pos_1: np.ndarray = np.array(
-                [c1[0] - solutions[0][0], c1[2] - solutions[0][1]])
-            guess_pos_2: np.ndarray = np.array(
-                [c1[0] - solutions[1][0], c1[2] - solutions[1][1]])
+            guess_pos_1: np.ndarray = np.array([c1[0] - solutions[0][0], c1[2] - solutions[0][1]])
+            guess_pos_2: np.ndarray = np.array([c1[0] - solutions[1][0], c1[2] - solutions[1][1]])
 
             dest_pos: np.ndarray
             if vector_norm(guess_pos_2) > vector_norm(guess_pos_1):
@@ -263,11 +251,9 @@ def main() -> None:
             r_transf2D: np.ndarray = np.array([r_transf[0], r_transf[2]])
             center_to_dest: np.ndarray = dest_pos - r_transf2D
 
-            dot_product: float = (-r_transf2D[0] * center_to_dest[0]) + \
-                                 (-r_transf2D[1] * center_to_dest[1])
-            final_angle: float = math.acos(dot_product /
-                                           (vector_norm(-r_transf2D) *
-                                            vector_norm(center_to_dest)))
+            dot_product: float = (-r_transf2D[0] * center_to_dest[0]) + (-r_transf2D[1] * center_to_dest[1])
+
+            final_angle: float = math.acos(dot_product / (vector_norm(-r_transf2D) * vector_norm(center_to_dest)))
 
             path_info.path_arc_angle = final_angle
             print("Arc angle:", final_angle)
@@ -297,8 +283,8 @@ def main() -> None:
                     "BOTH_FOUND" in prev_search_results):
 
                 if "BOTH_FOUND" not in prev_search_results:
-                    ball_index: int = prev_search_results.index("BALL_FOUND")
-                    pins_index: int = prev_search_results.index("PINS_FOUND")
+                    ball_index = prev_search_results.index("BALL_FOUND")
+                    pins_index = prev_search_results.index("PINS_FOUND")
 
                     left: bool = ball_index > pins_index
 
@@ -315,12 +301,10 @@ def main() -> None:
                 lin_speed: float = 0.2
                 rot_speed: float = lin_speed / path_info.circle_radius
 
-                travel_time: float = (path_info.path_arc_angle *
-                                      path_info.circle_radius) / lin_speed
+                travel_time: float = (path_info.path_arc_angle * path_info.circle_radius) / lin_speed
                 print("Travel time:", travel_time)
 
-                motor_driver.set_speed(
-                    rot_speed if path_info.on_left else -rot_speed, lin_speed)
+                motor_driver.set_speed(rot_speed if path_info.on_left else -rot_speed, lin_speed)
                 motor_driver.move_forward_accel(travel_time)
 
                 motor_driver.set_speed(0.7, 0.0)
@@ -362,20 +346,18 @@ def main() -> None:
             else:
                 motor_driver.rotate(math.pi / 2, not on_left)
 
-                lin_speed: float = 0.1
-                rot_speed: float = (lin_speed / path_info.circle_radius) * 2
+                lin_speed = 0.1
+                rot_speed = (lin_speed / path_info.circle_radius) * 2
 
-                motor_driver.set_speed(
-                    rot_speed if on_left else -rot_speed, lin_speed)
-                motor_driver.move_forward(
-                    dist_from_center * path_info.circle_radius / 30)
+                motor_driver.set_speed(rot_speed if on_left else -rot_speed, lin_speed)
+                motor_driver.move_forward(dist_from_center * path_info.circle_radius / 30)
                 motor_driver.set_speed(0.7, 0.0)
 
                 motor_driver.rotate(math.pi / 2, on_left)
                 robot_state = "PREP_TO_SCORE"
 
         elif robot_state == "SCORE":
-            depth_image: np.ndarray = turtle.get_point_cloud()
+            depth_image = turtle.get_point_cloud()
 
             ball_x: int
             ball_y: int
@@ -390,8 +372,8 @@ def main() -> None:
 
             path_info.score_back_up_done = True
 
-            lin_speed: float = 0.8
-            rot_speed: float = 0.75 / dist_to_ball
+            lin_speed = 0.8
+            rot_speed = 0.75 / dist_to_ball
 
             motor_driver.set_speed(rot_speed, lin_speed)
 
@@ -439,9 +421,7 @@ def get_side(image_results: list) -> Tuple[bool, int]:
     return pin_center <= image_results[5 - index].ball_position[0], pin_center
 
 
-def state_machine_step(prev_search_results: list,
-                       motor_driver: MotorDriver,
-                       path_info: PathInfo) -> bool:
+def state_machine_step(prev_search_results: list, motor_driver: MotorDriver, path_info: PathInfo) -> bool:
     """
     Handle state transitions for the GENERAL_SEARCH state.
 
@@ -456,25 +436,22 @@ def state_machine_step(prev_search_results: list,
     if "BOTH_FOUND" in prev_search_results:
         return True
 
-    if ("BALL_FOUND" in prev_search_results and
-            "PINS_FOUND" in prev_search_results):
+    if "BALL_FOUND" in prev_search_results and "PINS_FOUND" in prev_search_results:
+
         ball_first_index: int = prev_search_results.index("BALL_FOUND")
-        ball_last_index: int = (len(prev_search_results) -
-                                prev_search_results[::-1].index("BALL_FOUND"))
+        ball_last_index: int = (len(prev_search_results) - prev_search_results[::-1].index("BALL_FOUND"))
         ball_mid_index: int = int((ball_last_index + ball_first_index) / 2)
         pins_index: int = prev_search_results.index("PINS_FOUND")
 
         # set angle between ball and pins for later usage
-        path_info.ball_pins_angle = (abs(ball_mid_index - pins_index) *
-                                     TURN_ANGLE)
+        path_info.ball_pins_angle = (abs(ball_mid_index - pins_index) * TURN_ANGLE)
 
         # look back at the ball
         if pins_index > ball_first_index:
             left: bool = False
             if path_info.ball_pins_angle > math.pi:
                 # rotate around shorter arc
-                path_info.ball_pins_angle = abs(
-                    (2 * math.pi - path_info.ball_pins_angle) - 1.75)
+                path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - 1.75)
                 left = not left
 
             print("Correction:", path_info.ball_pins_angle)
@@ -482,8 +459,7 @@ def state_machine_step(prev_search_results: list,
 
         # made rotation over 180deg
         if path_info.ball_pins_angle > math.pi:
-            path_info.ball_pins_angle = abs(
-                (2 * math.pi - path_info.ball_pins_angle) - 1.75)
+            path_info.ball_pins_angle = abs((2 * math.pi - path_info.ball_pins_angle) - 1.75)
 
         return True
 
@@ -503,8 +479,7 @@ def center_ball(image_results: list, motor_driver: MotorDriver) -> bool:
         bool: True when ball is centered, False otherwise
     """
     if image_results[-1].has_ball:
-        dist_from_mid: int = (image_results[-1].ball_position[0] -
-                              IMAGE_CENTER_X)
+        dist_from_mid: int = (image_results[-1].ball_position[0] - IMAGE_CENTER_X)
         if abs(dist_from_mid) < X_THRESHOLD:
             # ball is centered, stop rotation
             motor_driver.rotate_non_blocking(False, False)
@@ -516,8 +491,7 @@ def center_ball(image_results: list, motor_driver: MotorDriver) -> bool:
     return False
 
 
-def get_distance_of_pixel(depth_image: np.ndarray,
-                          x_center: int, y_center: int) -> float:
+def get_distance_of_pixel(depth_image: np.ndarray, x_center: int, y_center: int) -> float:
     """
     Calculate average distance of a 7x7 pixel area around given coordinates.
 
@@ -538,9 +512,7 @@ def get_distance_of_pixel(depth_image: np.ndarray,
     return depth / (7 ** 2)
 
 
-def get_pin_vectors(depth_image: np.ndarray,
-                    k_matrix: np.ndarray,
-                    scene_info: SceneInfo) -> list:
+def get_pin_vectors(depth_image: np.ndarray, k_matrix: np.ndarray, scene_info: SceneInfo) -> list:
     """
     Convert pin positions from image coordinates to 3D camera space vectors.
 
@@ -556,17 +528,12 @@ def get_pin_vectors(depth_image: np.ndarray,
 
     for pin_pos in scene_info.pin_positions:
         # (pixel - Cx) * (d/Fx)
-        x_component: float = (pin_pos[0] - k_matrix[0][2]) * \
-                            (depth_image[pin_pos[1]][pin_pos[0]][2] /
-                             k_matrix[0][0])
-        y_component: float = (pin_pos[1] - k_matrix[1][2]) * \
-                             (depth_image[pin_pos[1]][pin_pos[0]][2] /
-                              k_matrix[1][1])
+        x_component: float = (pin_pos[0] - k_matrix[0][2]) * (depth_image[pin_pos[1]][pin_pos[0]][2] / k_matrix[0][0])
+        y_component: float = (pin_pos[1] - k_matrix[1][2]) * (depth_image[pin_pos[1]][pin_pos[0]][2] / k_matrix[1][1])
         z_component: float = depth_image[pin_pos[1]][pin_pos[0]][2]
 
         # create pin vectors in camera space
-        pin_vector: np.ndarray = np.array(
-            [x_component, y_component, z_component])
+        pin_vector: np.ndarray = np.array([x_component, y_component, z_component])
         vectors.append(pin_vector)
 
     return vectors
