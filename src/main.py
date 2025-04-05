@@ -81,10 +81,6 @@ MAX_RESULTS_CACHE: int = 27
 
 DEAD_AREA_ANGLE: float = 0.3
 
-# HSV Filter Parameters
-BALL_HSV = HSVFilter(30, 125, 65, 48)  # Yellow ball detection thresholds
-GOAL_HSV = HSVFilter(105, 160, 98, 196)  # Blue goal post detection thresholds
-
 
 def main() -> None:
     """Main control loop for autonomous soccer player."""
