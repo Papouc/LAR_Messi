@@ -43,15 +43,18 @@ LAR_Messi/
 
 ### Clone repository:
 ```bash
-  git clone https://github.com/Papouc/LAR_Messi
-  cd LAR_Messi
+git clone https://github.com/Papouc/LAR_Messi
+cd LAR_Messi
 ```
 
 ### Install dependencies
+```bash
 pip install -r requirements.txt
-
+```
 ### Run program
+```bash
 python src/main.py
+```
 
 ## 📊 System Architecture
 
@@ -61,11 +64,11 @@ python src/main.py
 
 ### Run PEP8 check
 ```bash
-  flake8 src/
+flake8 src/
 ```
 ### Expected output:
 ```bash
-  0 errors found
+0 errors found
 ```
 
 
