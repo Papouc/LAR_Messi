@@ -1,8 +1,4 @@
-from gi.overrides.Gtk import Paned
-from numpy.compat import contextlib_nullcontext
 from robolab_turtlebot import Turtlebot, Rate
-from scipy.linalg import sqrtm
-
 from motor_driver import MotorDriver
 from scene_info import SceneInfo
 from search_engine import SearchEngine
