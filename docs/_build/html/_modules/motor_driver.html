@@ -191,8 +191,7 @@
 
 <div class="viewcode-block" id="MotorDriver.__init__">
 <a class="viewcode-back" href="../_autosummary/motor_driver.html#motor_driver.MotorDriver.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">turtle</span><span class="p">:</span> <span class="n">Turtlebot</span><span class="p">,</span> <span class="n">rotation_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                 <span class="n">forward_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">turtle</span><span class="p">:</span> <span class="n">Turtlebot</span><span class="p">,</span> <span class="n">rotation_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">forward_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the MotorDriver with TurtleBot instance and default speeds.</span>
 
@@ -231,8 +230,7 @@
         <span class="n">stage_counter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Acceleration phase counter</span>
 
         <span class="c1"># Smooth acceleration phase</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">stage_counter</span> <span class="o">&lt;</span> <span class="n">ACCEL_PHASES_CNT</span> <span class="ow">and</span>
-               <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">())):</span>
+        <span class="k">while</span> <span class="n">stage_counter</span> <span class="o">&lt;</span> <span class="n">ACCEL_PHASES_CNT</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="n">speed_fw</span><span class="p">,</span> <span class="n">angular</span><span class="o">=</span><span class="n">speed_ag</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
 
@@ -247,8 +245,7 @@
         <span class="c1"># Constant velocity phase</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_forward_speed</span><span class="p">,</span>
-                                      <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_forward_speed</span><span class="p">,</span> <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">travel_time</span> <span class="o">+</span> <span class="n">accel_time</span><span class="p">:</span>
@@ -261,16 +258,14 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Move forward at constant speed for specified duration.&quot;&quot;&quot;</span>
         <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-        <span class="k">while</span> <span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">move_time</span><span class="p">)</span> <span class="ow">and</span>
-               <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">())):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_forward_speed</span><span class="p">,</span>
-                                      <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">move_time</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_forward_speed</span><span class="p">,</span> <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="MotorDriver.rotate">
 <a class="viewcode-back" href="../_autosummary/motor_driver.html#motor_driver.MotorDriver.rotate">[docs]</a>
-    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rotate by specified angle with blocking execution.</span>
 
@@ -280,8 +275,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reset_odometry_blocking</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_direction</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
 
-        <span class="k">while</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">get_odometry</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span> <span class="ow">and</span>
-               <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">())):</span>
+        <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">get_odometry</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">is_shutting_down</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
 
@@ -291,8 +285,7 @@
 
     <span class="k">def</span> <span class="nf">_set_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set rotation direction (internal helper method).&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span> <span class="k">if</span> <span class="n">left</span>
-                                <span class="k">else</span> <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">)</span> <span class="k">if</span> <span class="n">left</span> <span class="k">else</span> <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span><span class="p">))</span>
 
 <div class="viewcode-block" id="MotorDriver.rotate_non_blocking">
 <a class="viewcode-back" href="../_autosummary/motor_driver.html#motor_driver.MotorDriver.rotate_non_blocking">[docs]</a>
@@ -304,8 +297,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_direction</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
         <span class="c1"># Reduced speed for fine control</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-                                  <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span> <span class="o">/</span> <span class="mf">1.75</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turtle</span><span class="o">.</span><span class="n">cmd_velocity</span><span class="p">(</span><span class="n">linear</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">angular</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rotation_speed</span> <span class="o">/</span> <span class="mf">1.75</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MotorDriver.reset_odometry_blocking">

@@ -36,21 +36,6 @@ This program implements a complete robotic soccer player capable of:
    - Finite State Machine (12 states)
    - Motor control
    - Odometry-based navigation
-
-**State Machine States:**
-
-    - **IDLE** → GENERAL_SEARCH
-    - **GENERAL_SEARCH** → CENTER_BALL
-    - **CENTER_BALL** → GET_RADIUS
-    - **GET_RADIUS** → COMPUTE_PATH
-    - **COMPUTE_PATH** → CHECK_DISTANCE
-    - **CHECK_DISTANCE** → EXEC_PATH
-    - **EXEC_PATH** → PREP_TO_SCORE
-    - **PREP_TO_SCORE** → ALIGN
-    - **ALIGN** → SCORE
-    - **SCORE** → BACK_OFF
-    - **BACK_OFF** → IDLE
-    - **EM_STOP** (emergency halt, no transition)
 """
 from robolab_turtlebot import Turtlebot, Rate
 from motor_driver import MotorDriver

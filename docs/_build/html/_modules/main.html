@@ -205,23 +205,7 @@
 <span class="sd">   - Finite State Machine (12 states)</span>
 <span class="sd">   - Motor control</span>
 <span class="sd">   - Odometry-based navigation</span>
-
-<span class="sd">**State Machine States:**</span>
-
-<span class="sd">    - **IDLE** → GENERAL_SEARCH</span>
-<span class="sd">    - **GENERAL_SEARCH** → CENTER_BALL</span>
-<span class="sd">    - **CENTER_BALL** → GET_RADIUS</span>
-<span class="sd">    - **GET_RADIUS** → COMPUTE_PATH</span>
-<span class="sd">    - **COMPUTE_PATH** → CHECK_DISTANCE</span>
-<span class="sd">    - **CHECK_DISTANCE** → EXEC_PATH</span>
-<span class="sd">    - **EXEC_PATH** → PREP_TO_SCORE</span>
-<span class="sd">    - **PREP_TO_SCORE** → ALIGN</span>
-<span class="sd">    - **ALIGN** → SCORE</span>
-<span class="sd">    - **SCORE** → BACK_OFF</span>
-<span class="sd">    - **BACK_OFF** → IDLE</span>
-<span class="sd">    - **EM_STOP** (emergency halt, no transition)</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">robolab_turtlebot</span> <span class="kn">import</span> <span class="n">Turtlebot</span><span class="p">,</span> <span class="n">Rate</span>
 <span class="kn">from</span> <span class="nn">motor_driver</span> <span class="kn">import</span> <span class="n">MotorDriver</span>
 <span class="kn">from</span> <span class="nn">scene_info</span> <span class="kn">import</span> <span class="n">SceneInfo</span>
@@ -231,22 +215,20 @@
 <span class="kn">from</span> <span class="nn">image_processor</span> <span class="kn">import</span> <span class="n">ImageProcessor</span><span class="p">,</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">path_info</span> <span class="kn">import</span> <span class="n">PathInfo</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">math</span>
-
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="c1"># System Constants</span>
-<span class="n">LOOP_RATE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>                  <span class="c1"># Main control loop frequency (Hz)</span>
+<span class="n">LOOP_RATE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Main control loop frequency (Hz)</span>
 <span class="n">TURN_ANGLE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">18</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># Default rotation increment (radians)</span>
-<span class="n">IMAGE_CENTER_X</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">//</span> <span class="mi">2</span>       <span class="c1"># Horizontal center of camera frame</span>
-<span class="n">X_THRESHOLD</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>                <span class="c1"># Ball centering tolerance (pixels)</span>
-<span class="n">DEAD_AREA_ANGLE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>         <span class="c1"># Minimum viable path arc angle (radians)</span>
+<span class="n">IMAGE_CENTER_X</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Horizontal center of camera frame</span>
+<span class="n">X_THRESHOLD</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Ball centering tolerance (pixels)</span>
+<span class="n">DEAD_AREA_ANGLE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>  <span class="c1"># Minimum viable path arc angle (radians)</span>
 
-<span class="c1"># HSV Filter Parameters</span>
-<span class="n">BALL_HSV</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">48</span><span class="p">)</span>   <span class="c1"># Yellow ball detection thresholds</span>
-<span class="n">GOAL_HSV</span> <span class="o">=</span> <span class="n">HSVFilter</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">196</span><span class="p">)</span>  <span class="c1"># Blue goal post detection thresholds</span>
+<span class="n">MAX_RESULTS_CACHE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">27</span>
 
 
 <div class="viewcode-block" id="main">
@@ -270,15 +252,15 @@
     <span class="n">path_info</span><span class="p">:</span> <span class="n">PathInfo</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
     <span class="n">k_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_rgb_K</span><span class="p">()</span>
 
+    <span class="n">found_everything</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
     <span class="k">def</span> <span class="nf">change_state_onclicked</span><span class="p">(</span><span class="n">cb</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback for button press event to start the robot.&quot;&quot;&quot;</span>
         <span class="k">nonlocal</span> <span class="n">robot_state</span>
         <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
 
     <span class="k">def</span> <span class="nf">change_state_onbumper</span><span class="p">(</span><span class="n">cb</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback for bumper press event for emergency stop.&quot;&quot;&quot;</span>
-        <span class="k">nonlocal</span> <span class="n">robot_state</span>
-        <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;EM_STOP&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">turtle</span><span class="o">.</span><span class="n">register_button_event_cb</span><span class="p">(</span><span class="n">change_state_onclicked</span><span class="p">)</span>
     <span class="n">turtle</span><span class="o">.</span><span class="n">register_bumper_event_cb</span><span class="p">(</span><span class="n">change_state_onbumper</span><span class="p">)</span>
@@ -318,32 +300,35 @@
 
         <span class="c1"># State machine implementation</span>
         <span class="k">if</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">found_everything</span><span class="p">:</span>
+                <span class="n">found_everything</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">or</span> <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BOTH_FOUND&quot;</span><span class="p">:</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>  <span class="c1"># decide whether you see ball</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">path_info</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
+                    <span class="n">prev_search_results</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
+                    <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">MAX_RESULTS_CACHE</span><span class="p">:</span>
+                <span class="n">prev_search_results</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
             <span class="n">prev_search_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_result</span><span class="p">)</span>
 
             <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BOTH_FOUND&quot;</span><span class="p">:</span>
-                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span>
-                    <span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span><span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                 <span class="n">path_info</span><span class="o">.</span><span class="n">from_one_picture</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_side</span><span class="p">(</span><span class="n">image_results</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">and</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span>
-                    <span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">pin_vectors</span> <span class="o">=</span> <span class="n">get_pin_vectors</span><span class="p">(</span><span class="n">depth_image</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">,</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-            <span class="k">if</span> <span class="n">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">,</span>
-                                  <span class="n">path_info</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">or</span>
-                        <span class="n">search_result</span> <span class="o">==</span> <span class="s2">&quot;BOTH_FOUND&quot;</span><span class="p">):</span>
-                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;CENTER_BALL&quot;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">path_info</span> <span class="o">=</span> <span class="n">PathInfo</span><span class="p">()</span>
-                    <span class="n">prev_search_results</span> <span class="o">=</span> <span class="p">[]</span>
-                    <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
-
+            <span class="k">if</span> <span class="n">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">,</span> <span class="n">path_info</span><span class="p">):</span>
+                <span class="n">found_everything</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;CENTER_BALL&quot;</span><span class="p">:</span>
             <span class="n">motor_driver</span><span class="o">.</span><span class="n">reset_odometry_blocking</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">center_ball</span><span class="p">(</span><span class="n">image_results</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">):</span>
@@ -358,7 +343,7 @@
 
         <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;GET_RADIUS&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">has_ball</span><span class="p">:</span>
-                <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
+                <span class="n">depth_image</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
                 <span class="n">y_ball_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="n">x_ball_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -378,10 +363,8 @@
                 <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
 
                 <span class="c1"># check if full revolution between ball and pins</span>
-                <span class="k">if</span> <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="ow">and</span>
-                     <span class="n">ball_index</span> <span class="o">&gt;</span> <span class="n">pins_index</span><span class="p">)</span> <span class="ow">or</span>
-                    <span class="p">(</span><span class="n">pins_index</span> <span class="o">&gt;</span> <span class="n">ball_index</span> <span class="ow">and</span>
-                     <span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="ow">and</span> <span class="n">ball_index</span> <span class="o">&gt;</span> <span class="n">pins_index</span><span class="p">)</span> <span class="ow">or</span>
+                        <span class="p">(</span><span class="n">pins_index</span> <span class="o">&gt;</span> <span class="n">ball_index</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ball_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)):</span>
                     <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="o">=</span> <span class="kc">False</span>
@@ -400,18 +383,17 @@
                 <span class="p">[</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)]</span>
             <span class="p">])</span>
 
-            <span class="n">r_transf</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">transf_matrix</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">])</span>
+            <span class="n">r_transf</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">transf_matrix</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">])</span>
 
-            <span class="c1"># TODO: typdef</span>
+            <span class="n">x</span><span class="p">:</span> <span class="n">Any</span>
+            <span class="n">y</span><span class="p">:</span> <span class="n">Any</span>
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-            <span class="n">eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span>
-                     <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="n">eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span>
-                     <span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">eq1</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-            <span class="n">solutions</span> <span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve</span><span class="p">((</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="n">eq2</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">solutions</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="n">solve</span><span class="p">((</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 
             <span class="c1"># no intersections found</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">solutions</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
@@ -420,10 +402,8 @@
                 <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;GENERAL_SEARCH&quot;</span>
                 <span class="k">continue</span>
 
-            <span class="n">guess_pos_1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
-            <span class="n">guess_pos_2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">guess_pos_1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">guess_pos_2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
 
             <span class="n">dest_pos</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
             <span class="k">if</span> <span class="n">vector_norm</span><span class="p">(</span><span class="n">guess_pos_2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">vector_norm</span><span class="p">(</span><span class="n">guess_pos_1</span><span class="p">):</span>
@@ -434,11 +414,9 @@
             <span class="n">r_transf2D</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">r_transf</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r_transf</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
             <span class="n">center_to_dest</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">dest_pos</span> <span class="o">-</span> <span class="n">r_transf2D</span>
 
-            <span class="n">dot_product</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> \
-                                 <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">final_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">dot_product</span> <span class="o">/</span>
-                                           <span class="p">(</span><span class="n">vector_norm</span><span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">)</span> <span class="o">*</span>
-                                            <span class="n">vector_norm</span><span class="p">(</span><span class="n">center_to_dest</span><span class="p">)))</span>
+            <span class="n">dot_product</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">center_to_dest</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">final_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">dot_product</span> <span class="o">/</span> <span class="p">(</span><span class="n">vector_norm</span><span class="p">(</span><span class="o">-</span><span class="n">r_transf2D</span><span class="p">)</span> <span class="o">*</span> <span class="n">vector_norm</span><span class="p">(</span><span class="n">center_to_dest</span><span class="p">)))</span>
 
             <span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">=</span> <span class="n">final_angle</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Arc angle:&quot;</span><span class="p">,</span> <span class="n">final_angle</span><span class="p">)</span>
@@ -468,8 +446,8 @@
                     <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">):</span>
 
                 <span class="k">if</span> <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">:</span>
-                    <span class="n">ball_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
-                    <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
+                    <span class="n">ball_index</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
+                    <span class="n">pins_index</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
 
                     <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">ball_index</span> <span class="o">&gt;</span> <span class="n">pins_index</span>
 
@@ -486,12 +464,10 @@
                 <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>
                 <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">lin_speed</span> <span class="o">/</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span>
 
-                <span class="n">travel_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">*</span>
-                                      <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">/</span> <span class="n">lin_speed</span>
+                <span class="n">travel_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_info</span><span class="o">.</span><span class="n">path_arc_angle</span> <span class="o">*</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">/</span> <span class="n">lin_speed</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Travel time:&quot;</span><span class="p">,</span> <span class="n">travel_time</span><span class="p">)</span>
 
-                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span>
-                    <span class="n">rot_speed</span> <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">rot_speed</span> <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
                 <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward_accel</span><span class="p">(</span><span class="n">travel_time</span><span class="p">)</span>
 
                 <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
@@ -533,20 +509,18 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">not</span> <span class="n">on_left</span><span class="p">)</span>
 
-                <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
-                <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">lin_speed</span> <span class="o">/</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+                <span class="n">lin_speed</span> <span class="o">=</span> <span class="mf">0.1</span>
+                <span class="n">rot_speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">lin_speed</span> <span class="o">/</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
 
-                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span>
-                    <span class="n">rot_speed</span> <span class="k">if</span> <span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
-                <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span>
-                    <span class="n">dist_from_center</span> <span class="o">*</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">/</span> <span class="mi">30</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">rot_speed</span> <span class="k">if</span> <span class="n">on_left</span> <span class="k">else</span> <span class="o">-</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
+                <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="n">dist_from_center</span> <span class="o">*</span> <span class="n">path_info</span><span class="o">.</span><span class="n">circle_radius</span> <span class="o">/</span> <span class="mi">30</span><span class="p">)</span>
                 <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
                 <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">on_left</span><span class="p">)</span>
                 <span class="n">robot_state</span> <span class="o">=</span> <span class="s2">&quot;PREP_TO_SCORE&quot;</span>
 
         <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;SCORE&quot;</span><span class="p">:</span>
-            <span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
+            <span class="n">depth_image</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">get_point_cloud</span><span class="p">()</span>
 
             <span class="n">ball_x</span><span class="p">:</span> <span class="nb">int</span>
             <span class="n">ball_y</span><span class="p">:</span> <span class="nb">int</span>
@@ -561,18 +535,14 @@
 
             <span class="n">path_info</span><span class="o">.</span><span class="n">score_back_up_done</span> <span class="o">=</span> <span class="kc">True</span>
 
-            <span class="n">lin_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span>
-            <span class="n">rot_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">/</span> <span class="n">dist_to_ball</span>
+            <span class="n">lin_speed</span> <span class="o">=</span> <span class="mf">0.8</span>
+            <span class="n">rot_speed</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">/</span> <span class="n">dist_to_ball</span>
 
             <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">rot_speed</span><span class="p">,</span> <span class="n">lin_speed</span><span class="p">)</span>
 
             <span class="n">score_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">dist_to_ball</span> <span class="o">/</span> <span class="n">lin_speed</span>
             <span class="n">motor_driver</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="n">score_time</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gooool:D!!&quot;</span><span class="p">)</span>
-            <span class="k">break</span>
-
-        <span class="k">elif</span> <span class="n">robot_state</span> <span class="o">==</span> <span class="s2">&quot;EM_STOP&quot;</span><span class="p">:</span>
-            <span class="n">motor_driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
             <span class="k">break</span>
 
         <span class="n">main_loop_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
@@ -619,9 +589,7 @@
 
 <div class="viewcode-block" id="state_machine_step">
 <a class="viewcode-back" href="../_autosummary/main.html#main.state_machine_step">[docs]</a>
-<span class="k">def</span> <span class="nf">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-                       <span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span><span class="p">,</span>
-                       <span class="n">path_info</span><span class="p">:</span> <span class="n">PathInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">state_machine_step</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">motor_driver</span><span class="p">:</span> <span class="n">MotorDriver</span><span class="p">,</span> <span class="n">path_info</span><span class="p">:</span> <span class="n">PathInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle state transitions for the GENERAL_SEARCH state.</span>
 
@@ -636,25 +604,22 @@
     <span class="k">if</span> <span class="s2">&quot;BOTH_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span> <span class="ow">and</span>
-            <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;BALL_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span> <span class="ow">and</span> <span class="s2">&quot;PINS_FOUND&quot;</span> <span class="ow">in</span> <span class="n">prev_search_results</span><span class="p">:</span>
+
         <span class="n">ball_first_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">)</span>
-        <span class="n">ball_last_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">)</span> <span class="o">-</span>
-                                <span class="n">prev_search_results</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">))</span>
+        <span class="n">ball_last_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prev_search_results</span><span class="p">)</span> <span class="o">-</span> <span class="n">prev_search_results</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;BALL_FOUND&quot;</span><span class="p">))</span>
         <span class="n">ball_mid_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">ball_last_index</span> <span class="o">+</span> <span class="n">ball_first_index</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">pins_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">prev_search_results</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;PINS_FOUND&quot;</span><span class="p">)</span>
 
         <span class="c1"># set angle between ball and pins for later usage</span>
-        <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_mid_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">*</span>
-                                     <span class="n">TURN_ANGLE</span><span class="p">)</span>
+        <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ball_mid_index</span> <span class="o">-</span> <span class="n">pins_index</span><span class="p">)</span> <span class="o">*</span> <span class="n">TURN_ANGLE</span><span class="p">)</span>
 
         <span class="c1"># look back at the ball</span>
         <span class="k">if</span> <span class="n">pins_index</span> <span class="o">&gt;</span> <span class="n">ball_first_index</span><span class="p">:</span>
             <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
                 <span class="c1"># rotate around shorter arc</span>
-                <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
-                    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
+                <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
                 <span class="n">left</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">left</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correction:&quot;</span><span class="p">,</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span>
@@ -662,8 +627,7 @@
 
         <span class="c1"># made rotation over 180deg</span>
         <span class="k">if</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
-            <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
-                <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
+            <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">path_info</span><span class="o">.</span><span class="n">ball_pins_angle</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">True</span>
 
@@ -686,8 +650,7 @@
 <span class="sd">        bool: True when ball is centered, False otherwise</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">has_ball</span><span class="p">:</span>
-        <span class="n">dist_from_mid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
-                              <span class="n">IMAGE_CENTER_X</span><span class="p">)</span>
+        <span class="n">dist_from_mid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">image_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ball_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">IMAGE_CENTER_X</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dist_from_mid</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">X_THRESHOLD</span><span class="p">:</span>
             <span class="c1"># ball is centered, stop rotation</span>
             <span class="n">motor_driver</span><span class="o">.</span><span class="n">rotate_non_blocking</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -702,8 +665,7 @@
 
 <div class="viewcode-block" id="get_distance_of_pixel">
 <a class="viewcode-back" href="../_autosummary/main.html#main.get_distance_of_pixel">[docs]</a>
-<span class="k">def</span> <span class="nf">get_distance_of_pixel</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                          <span class="n">x_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_distance_of_pixel</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">x_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_center</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate average distance of a 7x7 pixel area around given coordinates.</span>
 
@@ -727,9 +689,7 @@
 
 <div class="viewcode-block" id="get_pin_vectors">
 <a class="viewcode-back" href="../_autosummary/main.html#main.get_pin_vectors">[docs]</a>
-<span class="k">def</span> <span class="nf">get_pin_vectors</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                    <span class="n">k_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                    <span class="n">scene_info</span><span class="p">:</span> <span class="n">SceneInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_pin_vectors</span><span class="p">(</span><span class="n">depth_image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">k_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">scene_info</span><span class="p">:</span> <span class="n">SceneInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert pin positions from image coordinates to 3D camera space vectors.</span>
 
@@ -745,17 +705,12 @@
 
     <span class="k">for</span> <span class="n">pin_pos</span> <span class="ow">in</span> <span class="n">scene_info</span><span class="o">.</span><span class="n">pin_positions</span><span class="p">:</span>
         <span class="c1"># (pixel - Cx) * (d/Fx)</span>
-        <span class="n">x_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> \
-                            <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span>
-                             <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">y_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> \
-                             <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span>
-                              <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">x_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">k_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">z_component</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">depth_image</span><span class="p">[</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">pin_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="c1"># create pin vectors in camera space</span>
-        <span class="n">pin_vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">x_component</span><span class="p">,</span> <span class="n">y_component</span><span class="p">,</span> <span class="n">z_component</span><span class="p">])</span>
+        <span class="n">pin_vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_component</span><span class="p">,</span> <span class="n">y_component</span><span class="p">,</span> <span class="n">z_component</span><span class="p">])</span>
         <span class="n">vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_vector</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">vectors</span></div>

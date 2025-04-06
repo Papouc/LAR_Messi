@@ -210,7 +210,7 @@
 <span class="kn">from</span> <span class="nn">scene_info</span> <span class="kn">import</span> <span class="n">SceneInfo</span>
 <span class="kn">from</span> <span class="nn">hsv_filter</span> <span class="kn">import</span> <span class="n">HSVFilter</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="c1"># Type alias for image arrays</span>
 <span class="n">Image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
@@ -319,15 +319,13 @@
         <span class="n">info</span><span class="p">:</span> <span class="n">SceneInfo</span> <span class="o">=</span> <span class="n">SceneInfo</span><span class="p">()</span>
 
         <span class="c1"># Convert to grayscale and threshold</span>
-        <span class="n">bw_image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">)</span>
+        <span class="n">bw_image</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">)</span>
         <span class="n">bw_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">bw_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">bw_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span>
-            <span class="n">bw_image</span><span class="p">,</span> <span class="n">BW_THRESH</span><span class="p">,</span> <span class="n">BW_MAXVALUE</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">bw_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">bw_image</span><span class="p">,</span> <span class="n">BW_THRESH</span><span class="p">,</span> <span class="n">BW_MAXVALUE</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
 
         <span class="c1"># Find contours in binary image</span>
         <span class="n">contours</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="n">contours</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span>
-            <span class="n">bw_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_NONE</span><span class="p">)</span>
+        <span class="n">contours</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">bw_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_NONE</span><span class="p">)</span>
 
         <span class="c1"># Analyze each contour</span>
         <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
@@ -336,25 +334,28 @@
 
             <span class="c1"># Calculate contour properties</span>
             <span class="n">hull</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convexHull</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
-            <span class="n">min_c_center</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+            <span class="n">min_c_center</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
             <span class="n">min_c_radius</span><span class="p">:</span> <span class="nb">float</span>
             <span class="n">min_c_center</span><span class="p">,</span> <span class="n">min_c_radius</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minEnclosingCircle</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
-            <span class="n">min_rect</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> \
-                <span class="n">cv2</span><span class="o">.</span><span class="n">minAreaRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="n">min_rect</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minAreaRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
             <span class="n">min_c_area</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">min_c_radius</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
             <span class="n">min_rect_area</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">min_rect</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">min_rect</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">w</span><span class="p">:</span> <span class="nb">int</span>
+            <span class="n">h</span><span class="p">:</span> <span class="nb">int</span>
+
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
 
             <span class="c1"># Classify as ball based on shape ratios</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">min_c_area</span> <span class="o">/</span> <span class="n">min_rect_area</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_RECT</span> <span class="ow">and</span>
-                    <span class="n">min_c_area</span> <span class="o">/</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">hull</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_HULL</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">min_c_area</span> <span class="o">/</span> <span class="n">min_rect_area</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_RECT</span> <span class="ow">and</span> <span class="n">min_c_area</span> <span class="o">/</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">hull</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">CIRCLE_TO_HULL</span><span class="p">:</span>
 
                 <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">MIN_VALID_AREA_BALL</span><span class="p">:</span>
                     <span class="k">continue</span>
 
                 <span class="n">info</span><span class="o">.</span><span class="n">has_ball</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="n">info</span><span class="o">.</span><span class="n">ball_position</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-                                      <span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">ball_position</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_c_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
                 <span class="c1"># Classify as goal post based on aspect ratio</span>
             <span class="k">elif</span> <span class="n">h</span> <span class="o">/</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="mf">1.9</span><span class="p">:</span>
@@ -369,7 +370,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">draw</span><span class="p">:</span>
                 <span class="k">continue</span>
 
-            <span class="n">box</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">min_rect</span><span class="p">)</span>
+            <span class="n">box</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">min_rect</span><span class="p">)</span>
             <span class="n">box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="p">[</span><span class="n">box</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_img</span><span class="p">,</span> <span class="p">[</span><span class="n">hull</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>

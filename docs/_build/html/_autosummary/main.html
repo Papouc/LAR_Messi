@@ -211,23 +211,6 @@
 - Motor control
 - Odometry-based navigation</p></li>
 </ol>
-<p><strong>State Machine States:</strong></p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>IDLE</strong> → GENERAL_SEARCH</p></li>
-<li><p><strong>GENERAL_SEARCH</strong> → CENTER_BALL</p></li>
-<li><p><strong>CENTER_BALL</strong> → GET_RADIUS</p></li>
-<li><p><strong>GET_RADIUS</strong> → COMPUTE_PATH</p></li>
-<li><p><strong>COMPUTE_PATH</strong> → CHECK_DISTANCE</p></li>
-<li><p><strong>CHECK_DISTANCE</strong> → EXEC_PATH</p></li>
-<li><p><strong>EXEC_PATH</strong> → PREP_TO_SCORE</p></li>
-<li><p><strong>PREP_TO_SCORE</strong> → ALIGN</p></li>
-<li><p><strong>ALIGN</strong> → SCORE</p></li>
-<li><p><strong>SCORE</strong> → BACK_OFF</p></li>
-<li><p><strong>BACK_OFF</strong> → IDLE</p></li>
-<li><p><strong>EM_STOP</strong> (emergency halt, no transition)</p></li>
-</ul>
-</div></blockquote>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
