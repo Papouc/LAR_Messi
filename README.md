@@ -62,7 +62,7 @@ python src/main.py
 ## ✅ Code Quality
 
 ### Run PEP8 check
-- flakeá
+- flake8
 ```bash
 flake8 src/
 ```
