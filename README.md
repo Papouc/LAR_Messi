@@ -62,14 +62,22 @@ python src/main.py
 ## ✅ Code Quality
 
 ### Run PEP8 check
+- flakeá
 ```bash
 flake8 src/
 ```
 ### Expected output:
 ```bash
-0 errors found
-```
 
+```
+- mypy
+```bash
+mypy src/
+```
+### Expected output:
+```bash
+Success: no issues found in 9 source files
+```
 
 ## 👥 Team Members  
 Adam Hendrych,
