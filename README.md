@@ -57,7 +57,7 @@ python src/main.py
 
 ## 📊 System Architecture
 
-------Dodelava David
+![State diagram](./docs/media/state_diagram.svg)
 
 ## ✅ Code Quality
 
